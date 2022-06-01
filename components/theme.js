@@ -7,8 +7,9 @@ const theme = extendTheme({
         mono: "'Roboto', sans-serif",
     },
     colors: {
-        body: "#071838",
-        baseLigth: "#142442"
+        base: "#071838",
+        base_ligth: "#142442",
+        base_pink: "#ff0076",
     }
 })
 

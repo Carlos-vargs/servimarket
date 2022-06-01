@@ -11,13 +11,13 @@ export default function Custom404() {
             <Head>
                 <title>Page Not Found</title>
             </Head>
-            <Flex bgColor="body" w="full" minH="100vh" justifyContent="center" alignItems="center" color="white">
+            <Flex bgColor="base" w="full" minH="100vh" justifyContent="center" alignItems="center" color="white">
                 <Stack
                     p={['30px 40px 28px', '30px 120px 60px', '30px 120px 60px', '44px 80px 60px', '94px 80px 100px']}
                     w="full" mx={['0px', '0px', '116px', '116px', '116px']}
                     spacing={['0px', '0px', '0px', '150px', '150px']}
                     borderRadius="10px"
-                    bgColor="baseLigth"
+                    bgColor="base_ligth"
                     maxWidth="1294px"
                     minW="320px"
                 >
@@ -38,7 +38,7 @@ export default function Custom404() {
                                 href="/"
                             >
                                 <HomeIcon bgColor="#ff0076" />
-                                <Text fontSize="16px" >Back Home</Text>
+                                <Text >Back Home</Text>
                             </NextChakraLink>
                         </Stack>
                         <Stack
@@ -49,7 +49,7 @@ export default function Custom404() {
                             ]}
                         >
                             <Heading as="h2" fontSize="24px" fontWeight="600" >It's just a 404 error...!</Heading>
-                            <Text fontSize="16px" lineHeight="calc(28/16)" noOfLines={[4, 4, 4, 3, 3]} maxW="326px" >
+                            <Text lineHeight="calc(28/16)" noOfLines={[4, 4, 4, 3, 3]} maxW="326px" >
                                 The page you are looking for is not available in the moments please try to anothers away thank you!
                             </Text>
                         </Stack>
