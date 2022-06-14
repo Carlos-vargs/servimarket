@@ -28,7 +28,7 @@ export default function Custom404() {
                         gridGap={['40px', '40px', '40px', '0px', '0px']}
                     >
                         <Stack pr={['0px', '0px', '0px', '46px', '46px']} gridGap="10px">
-                            <Heading as="h2" fontSize="36px" fontWeight="600">Don't Cry</Heading>
+                            <Heading as="h2" fontSize="36px">Don't Cry</Heading>
                             <NextChakraLink
                                 justifyContent={['center', 'center', 'center', 'flex-start', 'flex-start',]}
                                 mx={['auto', 'auto', '0px', '0px', '0px']}
@@ -48,8 +48,8 @@ export default function Custom404() {
                                 '1px solid rgba(255,255,255,.2)'
                             ]}
                         >
-                            <Heading as="h2" fontSize="24px" fontWeight="600" >It's just a 404 error...!</Heading>
-                            <Text lineHeight="calc(28/16)" noOfLines={[4, 4, 4, 3, 3]} maxW="326px" >
+                            <Heading as="h2" fontSize="24px">It's just a 404 error...!</Heading>
+                            <Text noOfLines={[4, 4, 4, 3, 3]} maxW="326px" >
                                 The page you are looking for is not available in the moments please try to anothers away thank you!
                             </Text>
                         </Stack>

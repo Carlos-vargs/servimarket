@@ -2,50 +2,31 @@ import UserPadlockIcon from "@icons/UserPadlockIcon";
 import CustomButton from "@components/CustomButton";
 import CustomInput from "@components/CustomInput";
 import { Flex, VStack } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 import { useFormik } from "formik";
-import axios from "axios";
+import { useSession } from "next-auth/react";
 
+function LoginForm({ csrfToken }) {
 
-function LoginForm() {
+    const session = useSession();
 
-    const router = useRouter()
+    // console.log("session", session)
 
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-    }
 
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: ''
+            password: '',
+            redirect: false
         },
-        onSubmit: async (values) => {
+        onSubmit: (values) => signIn('credentials', values)
 
-            try {
-                const { data: { data: user, token } } = await axios.post('http://10.67.1.111:8000/api/login', values, config)
-
-                localStorage.setItem('user', JSON.stringify(user))
-                localStorage.setItem('token', JSON.stringify(token))
-
-                router.push('/')
-
-            } catch ({ response: { data: { errors } } }) {
-
-                formik.setErrors(errors);
-
-            }
-
-
-        },
     })
 
     return (
         <Flex as="form" onSubmit={formik.handleSubmit} w="full" pt="46px" >
             <VStack spacing="38px" align="flex-start" w="inherit">
+                <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
                 <CustomInput
                     placeholder="example@gmail.com"
                     onChange={formik.handleChange}

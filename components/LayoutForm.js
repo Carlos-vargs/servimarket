@@ -29,7 +29,7 @@ function LayoutForm({ title, linkName, message, url, children, width = "520px", 
                     h={height}
                     w={width}
                 >
-                    <Heading fontSize="60px" mb="7px" lineHeight="1" fontWeight="600" textTransform="capitalize">{title}</Heading>
+                    <Heading fontSize="60px" mb="7px" lineHeight="heading" textTransform="capitalize">{title}</Heading>
                     <Flex direction={['column', 'column', 'row', 'row', 'row']} textAlign={['center', 'center', 'left', 'left', 'left']}>
                         <Text as="span" pr="4px" >{message}</Text>
                         <NextChakraLink href={url} color="base_pink" >

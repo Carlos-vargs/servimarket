@@ -27,12 +27,12 @@ function RegisterForm() {
         onSubmit: async (values) => {
 
             try {
-                const { data: { data: user, token } } = await axios.post('http://10.67.1.111:8000/api/register', values, config)
+                const { data: { data: user, token } } = await axios.post('http://10.67.1.111:8000/api/register', values, config);
 
-                localStorage.setItem('user', JSON.stringify(user))
-                localStorage.setItem('token', JSON.stringify(token))
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('token', JSON.stringify(token));
 
-                router.push('/')
+                router.push('/');
 
             } catch ({ response: { data: { errors } } }) {
 

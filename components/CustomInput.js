@@ -3,7 +3,7 @@ import { FormControl, FormLabel, Input, Text } from "@chakra-ui/react";
 function CustomInput({ name, errors, title,  ...rest }) {
     return (
         <FormControl>
-            <FormLabel htmlFor={name} fontWeight="400" mb="2" textTransform="capitalize" >{title}</FormLabel>
+            <FormLabel htmlFor={name} mb="2" textTransform="capitalize" >{title}</FormLabel>
             <Input
                 _focus={{ boxShadow: `0 0 0 1px #ff0076`, borderColor: "base_pink" }}
                 bgColor="base"
