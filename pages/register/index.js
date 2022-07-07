@@ -1,7 +1,8 @@
 import LayoutForm from "@components/LayoutForm";
 import RegisterForm from "@components/RegisterForm";
+import { getSession } from "next-auth/react";
 
-function Register() {
+export default function Register() {
     return (
         <LayoutForm
             message="Already account yet?"
@@ -16,4 +17,20 @@ function Register() {
     )
 }
 
-export default Register;
+export async function getServerSideProps(ctx) {
+
+    const session = await getSession(ctx)
+
+    if (session) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            }
+        }
+    }
+
+    return {
+        props: {}
+    }
+}

@@ -1,9 +1,8 @@
-import { Flex, Image } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 import NextChakraLink from "@components/NextChakraLink";
-import defaultProfile from "@images/user.png"
+import { signOut } from "next-auth/react";
 
-
-function DesktopNavigation({ data }) {
+export default function DesktopNavigation({ data, session }) {
     return (
         <Flex gridGap="40px" alignItems="center" >
             {
@@ -21,9 +20,26 @@ function DesktopNavigation({ data }) {
                     </NextChakraLink>
                 )
             }
-            <Image src={defaultProfile.src} borderRadius="full" w="48px" h="48px" objectFit="cover" />
+            {
+                session && <>
+                    <Text
+                        as="span"
+                        color="white"
+                        cursor="pointer"
+                        justifyContent="center"
+                        textTransform="capitalize"
+                        _hover={{ color: "base_pink" }}
+                        transition="all .3s ease-in-out"
+                        onClick={signOut}
+                    >
+                        Log out
+                    </Text>
+                    <NextChakraLink href={`/user/${session.user.id}`}  >
+                        <Avatar size="md" name={session?.user.name} />
+                    </NextChakraLink>
+                </>
+            }
+
         </Flex>
     );
 }
-
-export default DesktopNavigation;

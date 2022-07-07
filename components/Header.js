@@ -1,10 +1,11 @@
-import { Flex, Heading, Image } from "@chakra-ui/react";
+import Wrapper from "@components/Wrapper";
+import { Heading, } from "@chakra-ui/react";
 import { Hide, Show } from '@chakra-ui/media-query';
 import DesktopNavigation from "@components/DesktopNavigation";
 import MobileNavigation from "@components/MobileNavigation";
 
 
-function Header() {
+export default function Header({ session }) {
 
     const navigation = [
         {
@@ -25,28 +26,34 @@ function Header() {
         },
     ];
 
+    !session && navigation.push(
+        {
+            name: "Log in",
+            url: "/login",
+        },
+        {
+            name: "Sign Up",
+            url: "/register",
+        }
+    )
 
     return (
-        <Flex
-            w="full"
-            h="100px"
-            mx="auto"
-            px={['20px', '26px', '50px', '100px', '196px']}
-            maxW="1689px"
-            bgColor="base"
+        <Wrapper
+            width="full"
+            height="100px"
+            marginInline="auto"
+            backgroundColor="base"
             alignItems="center"
             justifyContent="space-between"
         >
-            <Heading color="white">LOGO</Heading>
+            <Heading color="white" textTransform="uppercase">serviplace</Heading>
             <Hide above="md">
-                <MobileNavigation data={navigation} />
+                <MobileNavigation data={navigation} session={session} />
             </Hide>
             <Show above="md" >
-                <DesktopNavigation data={navigation} />
+                <DesktopNavigation data={navigation} session={session} />
             </Show>
 
-        </Flex>
+        </Wrapper>
     );
 }
-
-export default Header;

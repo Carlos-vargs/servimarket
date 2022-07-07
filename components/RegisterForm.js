@@ -1,21 +1,13 @@
 import UserPadlockIcon from "@icons/UserPadlockIcon";
-import CustomButton from "@components/CustomButton";
 import CustomInput from "@components/CustomInput";
-import { Flex, VStack } from "@chakra-ui/react";
+import { Button, Flex, VStack } from "@chakra-ui/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
-import axios from "axios";
 
-function RegisterForm() {
+export default function RegisterForm() {
 
     const router = useRouter()
-
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        }
-    }
 
     const formik = useFormik({
         initialValues: {
@@ -23,34 +15,29 @@ function RegisterForm() {
             email: '',
             password: '',
             password_confirmation: '',
+            redirect: false
         },
-        onSubmit: async (values) => {
+        onSubmit: async values => {
 
-            try {
-                const { data: { data: user, token } } = await axios.post('http://10.67.1.111:8000/api/register', values, config);
+            const { error } = await signIn('register', values)
 
-                localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('token', JSON.stringify(token));
-
-                router.push('/');
-
-            } catch ({ response: { data: { errors } } }) {
-
-                formik.setErrors(errors);
-
+            if (!error) {
+                router.push('/')
             }
 
+            formik.setErrors(JSON.parse(error))
 
         },
-    })
+    });
+
 
     return (
-        <Flex as="form" onSubmit={formik.handleSubmit} w="full" pt="46px" >
-            <VStack spacing="38px" align="flex-start" w="inherit">
-                <Flex w="full" gridGap="30px" direction={['column', 'column', 'row', 'row', 'row']} >
+        <Flex as="form" onSubmit={formik.handleSubmit} width="full" paddingBlockStart="46px" >
+            <VStack spacing="38px" align="flex-start" width="inherit">
+                <Flex width="full" gridGap="30px" direction={['column', 'column', 'row', 'row', 'row']} >
                     <CustomInput
                         onChange={formik.handleChange}
-                        errors={formik.errors.name}
+                        errors={formik.errors?.error?.name}
                         value={formik.values.name}
                         autoComplete="name"
                         placeholder="name"
@@ -62,7 +49,7 @@ function RegisterForm() {
                     <CustomInput
                         placeholder="example@gmail.com"
                         onChange={formik.handleChange}
-                        errors={formik.errors.email}
+                        errors={formik.errors?.error?.email}
                         value={formik.values.email}
                         autoComplete="email"
                         title="email"
@@ -73,12 +60,12 @@ function RegisterForm() {
                 </Flex>
                 <Flex
                     direction={['column', 'column', 'row', 'row', 'row']}
-                    mt={['30px !important', '30px !important', '0px', '0px', '0px']}
+                    marginBlockStart={['30px !important', '30px !important', '0px', '0px', '0px']}
                     gridGap="30px"
-                    w="full"
+                    width="full"
                 >
                     <CustomInput
-                        errors={formik.errors.password}
+                        errors={formik.errors?.error?.password}
                         autoComplete="current-password"
                         onChange={formik.handleChange}
                         value={formik.values.password}
@@ -89,7 +76,7 @@ function RegisterForm() {
                         required
                     />
                     <CustomInput
-                        errors={formik.errors.password_confirmation}
+                        errors={formik.errors?.error?.password_confirmation}
                         value={formik.values.password_confirmation}
                         placeholder="password confirmation"
                         autoComplete="current-password"
@@ -100,17 +87,17 @@ function RegisterForm() {
                         required
                     />
                 </Flex>
-                <CustomButton
-                    alignSelf="flex-end"
+                <Button
+                    boxShadow="none"
                     type="submit"
-                    mt="44px !important"
+                    marginBlockStart="44px !important"
+                    alignSelf="flex-end"
+                    isDisabled={formik.errors?.error}
+                    leftIcon={<UserPadlockIcon />}
                 >
-                    <UserPadlockIcon />
                     register now
-                </CustomButton>
+                </Button>
             </VStack>
-        </Flex >
+        </Flex>
     )
 }
-
-export default RegisterForm;

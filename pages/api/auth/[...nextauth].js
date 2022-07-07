@@ -1,65 +1,117 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import axios from "axios"
+import { gql, request } from "graphql-request";
 
 export default NextAuth({
-	providers: [
-		CredentialsProvider({
-			name: 'Credentials',
-			async authorize(credentials) {
-
-
-				const config = {
-					headers: {
-						'Content-Type': 'application/json',
-						'Accept': 'application/json',
-					}
-				}
-
-				try {
-					const { data } = await axios.post('http://127.0.0.1:8000/api/login', credentials, config)
-
-					return data
-
-				} catch (error) {
-					console.log(error)
-				}
-
-
-			}
-		})
-	],
-	pages: {
-		signIn: "/login"
-	},
 	callbacks: {
-		async jwt({ user, token }) {
+		async jwt({ token, user }) {
 
-
-			// if (typeof user !== typeof undefined) {
-			// 	token.user = user;
-			// }
-
-			// if (user?.token) {
-			// 	token.accessToken = user.token
-			// }
+			if (user) {
+				token = user
+			}
 
 			return token
 		},
-		async session({ session, user, token }) {
+		async session({ session, token }) {
 
-			session.accessToken = token.accessToken
-			// session.user = user.
-
-			console.log(user)
-
-
+			session.token = token.token
+			session.user = token.user
 
 			return session
-		}
+		},
 	},
-	// session: {
-	// 	strategy: 'jwt',
-	// },
-	secret: "test",
+	providers: [
+		CredentialsProvider({
+			id: 'login',
+			name: 'Login',
+			async authorize(credentials) {
+
+				try {
+
+					const { login } = await request(
+						process.env.NEXT_PUBLIC_GRAPHQL_URL,
+						gql`
+						  mutation login($email: String!, $password: String! ) {
+								login(email: $email, password: $password) {
+									user{
+										id
+										name
+										email
+									}
+									token
+								}
+							}
+						`,
+						{
+							email: credentials?.email,
+							password: credentials?.password,
+						},
+						{
+							headers: {
+								'Content-Type': 'application/json',
+								'Accept': 'application/json',
+							}
+						}
+					)
+
+					return login
+
+				} catch ({ response: { errors } }) {
+
+					throw new Error(JSON.stringify({
+						error: errors[0].extensions.validation,
+					}))
+
+				}
+
+			}
+		}),
+		CredentialsProvider({
+			id: 'register',
+			name: 'Register',
+			async authorize(credentials) {
+
+				try {
+
+					const { register } = await request(
+						process.env.NEXT_PUBLIC_GRAPHQL_URL,
+						gql`
+						  mutation register($name: String!, $email: String!, $password: String!, $password_confirmation: String!) {
+								register(name: $name, email: $email, password: $password, password_confirmation: $password_confirmation ) {
+									user{
+										id
+										name
+										email
+									}
+									token
+								}
+							}
+						`,
+						{
+							name: credentials?.name,
+							email: credentials?.email,
+							password: credentials?.password,
+							password_confirmation: credentials?.password_confirmation
+						},
+						{
+							headers: {
+								'Content-Type': 'application/json',
+								'Accept': 'application/json',
+							}
+						}
+					)
+
+					return register
+
+				} catch ({ response: { errors } }) {
+
+					throw new Error(JSON.stringify({
+						error: errors[0].extensions.validation,
+					}))
+
+				}
+			}
+		})
+	],
+	secret: process.env.SESSION_SECRET,
 })

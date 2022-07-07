@@ -1,9 +1,35 @@
-function MenuIcon() {
+import { Box, Stack } from "@chakra-ui/react";
+import menu from "../../styles/Menu.module.css";
+
+export default function MenuIcon({ isOpen, onClick }) {
+
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+        <Stack as="button"
+            outline="none"
+            gridGap="11px"
+            cursor="pointer"
+            zIndex="4"
+            width="40px"
+            position={isOpen ? "fixed" : ""}
+            right={['20px', '40px']}
+            onClick={onClick}
+            justifyContent="center"
+        >
+            {
+                [1, 2, 3].map(i => (
+                    <Box key={i}
+                        as="span"
+                        display="block"
+                        width="full"
+                        height="3px"
+                        margin="0 !important"
+                        backgroundColor="white"
+                        borderRadius="4px"
+                        transition="all .3s"
+                        className={isOpen ? menu.open : menu.close}
+                    />
+                ))
+            }
+        </Stack>
     );
 }
-
-export default MenuIcon;

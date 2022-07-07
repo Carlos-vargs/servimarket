@@ -1,0 +1,15 @@
+.rating>input {
+  display: none;
+}
+
+.rating label {
+  cursor    : pointer;
+  transition: color .4s;
+}
+
+.rating>label:hover,
+.rating>label:hover~label,
+.rating>input:checked~label,
+.rating:hover>input:checked~label {
+  color: #eee966;
+}

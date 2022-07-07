@@ -1,36 +1,40 @@
 import UserPadlockIcon from "@icons/UserPadlockIcon";
-import CustomButton from "@components/CustomButton";
 import CustomInput from "@components/CustomInput";
-import { Flex, VStack } from "@chakra-ui/react";
+import { Button, Flex, VStack } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
 import { useFormik } from "formik";
-import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
-function LoginForm({ csrfToken }) {
+export default function LoginForm() {
 
-    const session = useSession();
-
-    // console.log("session", session)
-
+    const router = useRouter()
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            redirect: false
+            redirect: false,
         },
-        onSubmit: (values) => signIn('credentials', values)
+        onSubmit: async values => {
 
-    })
+            const { error } = await signIn('login', values)
+
+            if (!error) {
+                router.push('/')
+            }
+
+            formik.setErrors(JSON.parse(error))
+
+        },
+    });
 
     return (
-        <Flex as="form" onSubmit={formik.handleSubmit} w="full" pt="46px" >
-            <VStack spacing="38px" align="flex-start" w="inherit">
-                <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+        <Flex as="form" onSubmit={formik.handleSubmit} width="full" paddingBlockStart="46px" >
+            <VStack spacing="38px" align="flex-start" width="inherit">
                 <CustomInput
+                    errors={formik.errors?.error?.email}
                     placeholder="example@gmail.com"
                     onChange={formik.handleChange}
-                    errors={formik.errors.email}
                     value={formik.values.email}
                     autoComplete="email"
                     title="email"
@@ -39,7 +43,7 @@ function LoginForm({ csrfToken }) {
                     required
                 />
                 <CustomInput
-                    errors={formik.errors.password}
+                    errors={formik.errors?.error?.password}
                     autoComplete="current-password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
@@ -49,17 +53,16 @@ function LoginForm({ csrfToken }) {
                     name="password"
                     required
                 />
-                <CustomButton
-                    alignSelf="flex-end"
+                <Button
                     type="submit"
-                    mt="44px !important"
+                    marginBlockStart="44px !important"
+                    alignSelf="flex-end"
+                    isDisabled={formik.errors?.error}
+                    leftIcon={<UserPadlockIcon />}
                 >
-                    <UserPadlockIcon />
                     login now
-                </CustomButton>
+                </Button>
             </VStack>
-        </Flex >
-    );
+        </Flex>
+    )
 }
-
-export default LoginForm;

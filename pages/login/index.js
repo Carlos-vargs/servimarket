@@ -1,8 +1,8 @@
 import LoginForm from "@components/LoginForm";
 import LayoutForm from "@components/LayoutForm";
-import { getCsrfToken } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
-export default function Login({ csrfToken }) {
+export default function Login() {
 
     return (
         <LayoutForm
@@ -12,18 +12,25 @@ export default function Login({ csrfToken }) {
             title="Login"
             height="auto"
         >
-            <LoginForm csrfToken={csrfToken} />
+            <LoginForm />
         </LayoutForm>
     )
 }
 
-
 export async function getServerSideProps(ctx) {
 
-    const csrfToken = await getCsrfToken(ctx)
+    const session = await getSession(ctx)
 
-    return {
-        props: { csrfToken },
+    if (session) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/"
+            }
+        }
     }
 
+    return {
+        props: {}
+    }
 }
