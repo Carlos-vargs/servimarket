@@ -1,7 +1,7 @@
 import { Link } from '@chakra-ui/react';
 import NextLink from 'next/link';
 
-function NextChakraLink({ href, children, ...rest }) {
+export default function NextChakraLink({ href, children, ...rest }) {
     return (
         <NextLink
             href={href}
@@ -17,5 +17,3 @@ function NextChakraLink({ href, children, ...rest }) {
         </NextLink>
     );
 }
-
-export default NextChakraLink;
