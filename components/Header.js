@@ -47,13 +47,12 @@ export default function Header({ session }) {
             justifyContent="space-between"
         >
             <Heading color="white" textTransform="uppercase">serviplace</Heading>
-            <Hide above="md">
+            <Hide above="lg">
                 <MobileNavigation data={navigation} session={session} />
             </Hide>
-            <Show above="md" >
+            <Show above="lg" >
                 <DesktopNavigation data={navigation} session={session} />
             </Show>
-
         </Wrapper>
     );
 }

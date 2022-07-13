@@ -19,20 +19,20 @@ export default function CompanyCard({ company }) {
                 height="330px"
                 width="full"
                 _hover={{
-                    '&>div:first-of-type': { transform: "translateY(110px)" }
+                    '&>div:first-of-type': { transform: "translate(-50%, 110px)" }
                 }}
             >
                 <Image src={defaultCompanyCover.src} />
                 <Stack
                     transition="all .3s ease-in-out"
-                    transform="translateY(116px)"
+                    transform="translate(-50%, 116px)"
                     textTransform="capitalize"
                     position="absolute"
                     borderRadius="12px"
                     alignItems="center"
                     margin="0 !important"
                     backgroundColor="base"
-                    left="30px"
+                    left="50%"
                     width="240px"
                     height="120px"
                 >

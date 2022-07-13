@@ -11,6 +11,7 @@ export default function DesktopNavigation({ data, session }) {
                         color="white"
                         key={item.name}
                         href={item.url}
+                        whiteSpace="nowrap"
                         justifyContent="center"
                         textTransform="capitalize"
                         _hover={{ color: "base_pink" }}
@@ -26,6 +27,7 @@ export default function DesktopNavigation({ data, session }) {
                         as="span"
                         color="white"
                         cursor="pointer"
+                        whiteSpace="nowrap"
                         justifyContent="center"
                         textTransform="capitalize"
                         _hover={{ color: "base_pink" }}

@@ -5,8 +5,8 @@ import CustomInput from "@components/CustomInput";
 import MultiSelect from "@components/MultiSelect";
 import { gql, request } from "graphql-request";
 import { useSession } from "next-auth/react";
-import CreateIcon from "@icons/CreateIcon";
 import { useRouter } from "next/router";
+import SaveIcon from "@icons/SaveIcon";
 import { useFormik } from "formik";
 
 export default function CompanyForm({ categories = [] }) {
@@ -119,7 +119,7 @@ export default function CompanyForm({ categories = [] }) {
             <Button
                 type="submit"
                 alignSelf="flex-end"
-                leftIcon={<CreateIcon />}
+                leftIcon={<SaveIcon />}
                 marginBlockStart="44px !important"
             >
                 create now
