@@ -11,7 +11,7 @@ export default function AuthUserOptions({ userId }) {
     return (
         <Flex gridGap="20px" direction={['column', 'column', 'row', 'row', 'row']}  >
             {
-                session?.user.id === userId && <NextChakraLink href={`/user/${session?.user.id}/create-company`}>
+                session?.user.id === userId && <NextChakraLink href={`/user/${userId}/create-company`}>
                     <Button variant="outline" rightIcon={<CreateIcon />}>create company</Button>
                 </NextChakraLink>
             }

@@ -2,9 +2,11 @@ import { Heading } from "@chakra-ui/react";
 import CompanyForm from "@components/CompanyForm";
 import LayoutPage from "@components/LayoutPage";
 import Wrapper from "@components/Wrapper";
+import { gql, request } from "graphql-request";
 import { getSession } from "next-auth/react";
 
-export default function CreateNewCompany() {
+export default function CreateNewCompany({ categories }) {
+
     return (
         <LayoutPage titleHead="Create Company">
             <Wrapper
@@ -22,8 +24,7 @@ export default function CreateNewCompany() {
                 >
                     create new company
                 </Heading>
-                <CompanyForm />
-
+                <CompanyForm categories={categories} />
             </Wrapper>
         </LayoutPage>
     );
@@ -37,12 +38,24 @@ export async function getServerSideProps(ctx) {
         return {
             redirect: {
                 permanent: false,
-                destination: "/"
+                destination: "/404"
             }
         }
     }
 
+    const { categories } = await request(
+        process.env.NEXT_PUBLIC_GRAPHQL_URL,
+        gql`
+          query categories{
+            categories{
+                id 
+                name
+            }
+          }
+        `,
+    )
+
     return {
-        props: {}
+        props: { categories }
     }
 }

@@ -41,6 +41,7 @@ export default function MobileNavigation({ data, session }) {
                         <NextChakraLink
                             key={item.name}
                             href={item.url}
+                            onClick={handleClick}
                         >
                             <NavMobile>
                                 {item.name}
@@ -49,7 +50,9 @@ export default function MobileNavigation({ data, session }) {
                     ))
                 }
                 {
-                    session && <NavMobile onClick={signOut} >Log out</NavMobile>
+                    session && <NavMobile onClick={signOut}>
+                        Log out
+                    </NavMobile>
                 }
             </Stack>
         </>

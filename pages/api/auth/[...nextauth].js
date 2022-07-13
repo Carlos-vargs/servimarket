@@ -46,12 +46,6 @@ export default NextAuth({
 							email: credentials?.email,
 							password: credentials?.password,
 						},
-						{
-							headers: {
-								'Content-Type': 'application/json',
-								'Accept': 'application/json',
-							}
-						}
 					)
 
 					return login
@@ -93,12 +87,6 @@ export default NextAuth({
 							password: credentials?.password,
 							password_confirmation: credentials?.password_confirmation
 						},
-						{
-							headers: {
-								'Content-Type': 'application/json',
-								'Accept': 'application/json',
-							}
-						}
 					)
 
 					return register

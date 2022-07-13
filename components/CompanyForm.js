@@ -38,7 +38,7 @@ export default function CompanyForm({ categories = [] }) {
             }
 
             try {
-                const res = await request(
+                await request(
                     process.env.NEXT_PUBLIC_GRAPHQL_URL,
                     gql`
                         mutation createCompany($input: CreateCompanyInput!) {

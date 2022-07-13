@@ -37,12 +37,6 @@ export async function getServerSideProps(ctx) {
         {
             id: ctx.query.id
         },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        }
     )
 
     if (!user) {
