@@ -1,7 +1,7 @@
 import { color, Flex, FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react";
+import MultiSelectTheme from "@public/MultiSelectTheme";
 import makeAnimated from 'react-select/animated';
 import Select from 'react-select';
-import MultiSelectTheme from "@components/MultiSelectTheme";
 
 export default function MultiSelect({ name, errors, title, data, ...rest }) {
 
