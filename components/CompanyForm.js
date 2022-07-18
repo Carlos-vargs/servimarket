@@ -1,4 +1,4 @@
-import fixErrorsMessage from "@components/fixErrorMessage";
+import fixErrorsMessage from "@components/fixErrorsMessage";
 import CustomTextTarea from "@components/CustomTextTarea";
 import { Button, VStack } from "@chakra-ui/react";
 import CustomInput from "@components/CustomInput";
@@ -25,15 +25,18 @@ export default function CompanyForm({ categories = [] }) {
         },
         onSubmit: async values => {
 
-            if (values.description === '') {
+            const input = {}
+            input.name = values.name
 
-                delete values.description
+            if (values.description !== '') {
+
+                input.description = values.description
 
             }
 
-            if (values.categories?.sync?.length === 0) {
+            if (values.categories.sync.length !== 0) {
 
-                delete values.categories
+                input.categories = values.categories
 
             }
 
@@ -54,9 +57,7 @@ export default function CompanyForm({ categories = [] }) {
                         }
                     `,
                     {
-                        input: {
-                            ...values
-                        },
+                        input
                     },
                     {
                         'Authorization': `Bearer ${session.token}`,
