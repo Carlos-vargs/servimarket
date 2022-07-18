@@ -1,9 +1,9 @@
-import { Flex, Text, VStack } from "@chakra-ui/react";
 import SocialNetworkList from "@components/SocialNetworkList";
 import FooterDataList from "@components/FooterDataList";
+import { Flex, Text, VStack } from "@chakra-ui/react";
+import Newsletter from "@components/Newsletter";
 import Wrapper from '@components/Wrapper';
 import Logo from "@components/Logo";
-import Newsletter from "@components/Newsletter";
 
 export default function Footer() {
 
@@ -11,7 +11,6 @@ export default function Footer() {
         { name: "profile", href: "/#" },
         { name: "my companies", href: "/#" },
         { name: "settings", href: "/#" },
-        { name: "profile", href: "/#" },
     ]
 
     const serviplace = [
@@ -31,21 +30,30 @@ export default function Footer() {
             color="white"
             width="full"
         >
-            <Wrapper width="full" gridGap="56px" >
-                <Flex paddingBlock="74px" gridGap="56px" >
+            <Wrapper
+                width="full"
+                gridGap="24px"
+                flexWrap="wrap"
+                paddingBlockEnd={['74px', '74px', '74px', '0', '0',]}
+                justifyContent={['center', 'center', 'center', 'center', 'space-between',]}
+            >
+                <Flex paddingBlock="74px" gridGap="56px"
+                    flexWrap="wrap" justifyContent={['center', 'center', 'center', 'center', 'flex-start',]}
+                >
                     <FooterDataList data={account} title="my account" />
                     <FooterDataList data={serviplace} title="serviplace" />
                     <Newsletter />
                 </Flex>
                 <VStack
-                    alignItems="center"
+                    borderRadius={['md', 'md', 'md', '0', '0']}
+                    background="base_gradient"
                     padding="80px 16px"
-                    bg="base_gradient"
+                    alignItems="center"
                     textAlign="center"
                     maxWidth="352px"
                     spacing="38px"
                     height="410px"
-                    w="full"
+                    width="full"
                 >
                     <Logo />
                     <Text>

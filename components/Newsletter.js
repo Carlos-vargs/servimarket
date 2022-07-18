@@ -10,7 +10,7 @@ export default function Newsletter() {
             email: ""
         },
         onSubmit: values => {
-            conosle.log(values)
+            console.log("sending email to:", values.email)
         }
     })
 
@@ -19,8 +19,8 @@ export default function Newsletter() {
             <Heading as="h4" fontSize="24px" >
                 newsletter
             </Heading>
-            <CustomInput placeholder="Enter Your Email" required name="email" value={formik.values.email} onChange={formik.handleChange} />
-            <Button leftIcon={<EnvelopeIcon />} type="submit">signup now</Button>
+            <CustomInput placeholder="Enter Your Email" type="email" required name="email" value={formik.values.email} onChange={formik.handleChange} />
+            <Button leftIcon={<EnvelopeIcon />} type="submit" alignSelf={['flex-end', 'flex-start',]}>signup now</Button>
         </VStack>
     );
 }
