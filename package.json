@@ -16,6 +16,7 @@
     "formik": "^2.2.9",
     "framer-motion": "^6",
     "graphql-request": "^4.3.0",
+    "nanoid": "^4.0.0",
     "next": "^12.2.0",
     "next-auth": "^4.8.0",
     "react": "18.1.0",

@@ -1,4 +1,4 @@
-function SaveIcon(props) {
+export default function SaveIcon(props) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -14,5 +14,3 @@ function SaveIcon(props) {
         </svg>
     );
 }
-
-export default SaveIcon;

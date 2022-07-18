@@ -1,9 +1,8 @@
+import Logo from "@components/Logo";
 import Wrapper from "@components/Wrapper";
-import { Heading, } from "@chakra-ui/react";
 import { Hide, Show } from '@chakra-ui/media-query';
 import DesktopNavigation from "@components/DesktopNavigation";
 import MobileNavigation from "@components/MobileNavigation";
-
 
 export default function Header({ session }) {
 
@@ -46,7 +45,7 @@ export default function Header({ session }) {
             alignItems="center"
             justifyContent="space-between"
         >
-            <Heading color="white" textTransform="uppercase">serviplace</Heading>
+           <Logo />
             <Hide above="lg">
                 <MobileNavigation data={navigation} session={session} />
             </Hide>
