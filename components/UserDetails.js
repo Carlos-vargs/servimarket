@@ -12,6 +12,7 @@ export default function UserDetails({ user }) {
             marginBlockStart="0 !important"
             borderBlockEnd="1px solid rgba(255,255,255,.1)"
             height={['280px', '280px', '220px', '220px', '134px']}
+            // pb="40px"
         >
             <Wrapper
                 width="full"

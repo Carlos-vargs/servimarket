@@ -1,13 +1,7 @@
 export default function fixErrorsMessage(data) {
 
-    const regex = (value) => value.map(string => string.replace(/input./, "")).toString()
+    const regex = (value) => value.map(string => string.replace(/input./, ""))
 
-    const array = [
-        {
-            [regex(Object.keys(data))]: [Object.values(data).map(e => regex(e))]
-        }
-    ]
-
-    return array
+    return Object.fromEntries(Object.entries(data).map(e => e.flat()).map(field => regex(field)))
 
 }

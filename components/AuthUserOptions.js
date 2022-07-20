@@ -11,11 +11,16 @@ export default function AuthUserOptions({ userId }) {
     return (
         <Flex gridGap="20px" flexWrap="wrap" justifyContent="center"  >
             {
-                session?.user.id === userId && <NextChakraLink href={`/user/${userId}/create-company`}>
-                    <Button variant="outline" rightIcon={<CreateIcon />}>create company</Button>
-                </NextChakraLink>
+                session?.user.id === userId && <>
+                    <NextChakraLink href={`/user/${userId}/create-company`}>
+                        <Button variant="outline" rightIcon={<CreateIcon />}>create company</Button>
+                    </NextChakraLink>
+                    <NextChakraLink href={`/company/create-service`}>
+                        <Button variant="outline" rightIcon={<CreateIcon />}>create service</Button>
+                    </NextChakraLink>
+                </>
             }
-            <CustomSearchInput />
+            {/* <CustomSearchInput /> */}
         </Flex>
     );
 }

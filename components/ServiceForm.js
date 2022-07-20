@@ -1,15 +1,15 @@
 import fixErrorsMessage from "@components/fixErrorsMessage";
 import CustomTextTarea from "@components/CustomTextTarea";
-import { Button, VStack } from "@chakra-ui/react";
 import CustomInput from "@components/CustomInput";
-import MultiSelect from "@components/MultiSelect";
+import { Button, VStack } from "@chakra-ui/react";
 import { gql, request } from "graphql-request";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import SaveIcon from "@icons/SaveIcon";
 import { useFormik } from "formik";
+import MultiSelect from "@components/MultiSelect";
 
-export default function CompanyForm({ categories = [] }) {
+export default function ServiceForm({companies}) {
 
     const router = useRouter()
 
@@ -19,40 +19,19 @@ export default function CompanyForm({ categories = [] }) {
         initialValues: {
             name: '',
             description: '',
-            categories: {
-                sync: []
-            }
+            company_id: '',
         },
-        onSubmit: async values => {
-
-            const input = {}
-            input.name = values.name
-
-            if (values.description !== '') {
-
-                input.description = values.description
-
-            }
-
-            if (values.categories.sync.length !== 0) {
-
-                input.categories = values.categories
-
-            }
+        onSubmit: async input => {
 
             try {
                 await request(
                     process.env.NEXT_PUBLIC_GRAPHQL_URL,
                     gql`
-                        mutation createCompany($input: CreateCompanyInput!) {
-                            createCompany(input: $input) {
+                        mutation createProduct($input: CreateProductInput!) {
+                            createProduct(input: $input) {
                                 id
                                 name
                                 description
-                                categories{
-                                    id
-                                    name
-                                }
                             }
                         }
                     `,
@@ -64,7 +43,7 @@ export default function CompanyForm({ categories = [] }) {
                     }
                 )
 
-                router.push(`/user/${session.user.id}`)
+                router.push(`/company/${formik.values.company_id}`)
 
             } catch ({ response: { errors } }) {
 
@@ -99,17 +78,19 @@ export default function CompanyForm({ categories = [] }) {
                 errors={formik.errors.name}
                 onChange={formik.handleChange}
             />
-            <MultiSelect
-                isMulti
+             <MultiSelect
                 required
-                name="categories"
-                data={categories}
-                title="categories"
-                placeholder="categories"
-                errors={formik.errors.categories}
-                onChange={(categories) => formik.setFieldValue('categories.sync', categories.map(category => category.value))}
+                isClearable
+                name="company_id"
+                data={companies}
+                title="Companies"
+                placeholder="Select company"
+                value={formik.values.company_id}
+                errors={formik.errors.company_id}
+                onChange={(company) => formik.setFieldValue('company_id', company?.value)}
             />
             <CustomTextTarea
+                required
                 name="description"
                 title="description"
                 placeholder="Description"
@@ -121,6 +102,7 @@ export default function CompanyForm({ categories = [] }) {
                 type="submit"
                 alignSelf="flex-end"
                 leftIcon={<SaveIcon />}
+                disabled={Object.entries(formik.errors).length !== 0}
                 marginBlockStart="44px !important"
             >
                 create now

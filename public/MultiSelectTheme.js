@@ -26,7 +26,7 @@ const MultiSelectTheme = {
     multiValue: () => ({
         backgroundColor: "#ff0076",
         display: "flex",
-        minWidth:"0",
+        minWidth: "0",
         borderRadius: "0.375rem"
     }),
     noOptionsMessage: () => ({
@@ -36,7 +36,11 @@ const MultiSelectTheme = {
         ...styles,
         color: "#fff"
     }),
-    valueContainer: () => ({
+    valueContainer: (styles) => ({
+        ...styles,
+        '&>div:first-of-type':{
+            width:"auto !important"
+        },
         gap: "4px",
         padding: "1px 9px",
         flexWrap: "wrap",
@@ -70,14 +74,19 @@ const MultiSelectTheme = {
     }),
     indicatorSeparator: (styles) => ({
         ...styles,
-        maxHeight:"26px",
-        height:"100%",
-        alignSelf:"center",
+        maxHeight: "26px",
+        height: "100%",
+        alignSelf: "center",
         backgroundColor: "#637993",
     }),
     input: (styles) => ({
         ...styles,
         color: "#fff"
+    }),
+    singleValue: (styles) => ({
+        ...styles,
+        display: "flex",
+        color: "#fff",
     })
 }
 
