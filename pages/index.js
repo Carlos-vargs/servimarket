@@ -1,38 +1,60 @@
-import { Box, Flex } from "@chakra-ui/react";
-import NextChakraLink from "@components/NextChakraLink";
-import { signOut, useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import { Flex, } from "@chakra-ui/react";
+import { request, gql } from "graphql-request";
+import LayoutPage from "@components/LayoutPage";
+const UserList = dynamic(() => import("@components/UserList"));
+const PrimeData = dynamic(() => import("@components/PrimeData"));
+const UsageGuide = dynamic(() => import("@components/UsageGuide"));
+const CompanyList = dynamic(() => import("@components/CompanyList"));
 
+export default function Home({ companies, users }) {
 
-export default function Home() {
+    return (
+        <LayoutPage titleHead="Home" coverImage={false}>
+            <PrimeData />
+            <UsageGuide />
+            <UserList users={users} />
+            <Flex
+                width="full"
+                id="explore"
+                backgroundColor="base"
+            >
+                <CompanyList
+                    gridGap="54px"
+                    withSwiper={true}
+                    paddingBlock="116px"
+                    companies={companies}
+                />
+            </Flex>
+        </LayoutPage>
+    );
+}
 
-	const { data: session } = useSession()
+export async function getServerSideProps(ctx) {
 
-	return (
-		<Flex
-			minHeight="100vh"
-			width="full"
-			backgroundColor="base"
-		>
+    const { companies, users } = await request(
+        process.env.NEXT_PUBLIC_GRAPHQL_URL,
+        gql`
+          query companiesAndUsers{
+            companies(limit: 20){
+                id 
+                name
+                description
+                productCount
+            }
+            users(limit: 20){
+                id 
+                name
+            }
+        }
+        `,
+        {
+            id: ctx.query.id
+        },
 
+    )
 
-			{
-				session ? <Box marginInline="20px" color="white" onClick={(e) => {
-					e.preventDefault()
-
-					return signOut()
-				}}>
-					Sign Out
-				</Box>
-					: <Flex gap="20px" >
-						<NextChakraLink href="/login" color="base_pink" >
-							Signin
-						</NextChakraLink>
-						<NextChakraLink href="/register" color="base_pink" >
-							SignUp
-						</NextChakraLink>
-					</Flex>
-			}
-
-		</Flex>
-	)
+    return {
+        props: { companies, users }
+    }
 }

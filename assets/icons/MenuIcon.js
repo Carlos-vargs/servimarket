@@ -5,13 +5,14 @@ export default function MenuIcon({ isOpen, onClick }) {
 
     return (
         <Stack as="button"
+            
             outline="none"
             gridGap="11px"
             cursor="pointer"
             zIndex="4"
             width="40px"
             position={isOpen ? "fixed" : ""}
-            right={['20px', '40px']}
+            right={['20px', '40px', '60px']}
             onClick={onClick}
             justifyContent="center"
         >

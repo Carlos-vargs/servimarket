@@ -16,6 +16,9 @@
             "@components/*": [
                 "components/*"
             ],
+            "@public/*": [
+                "public/*"
+            ]
         },
         "types": [
             "node",

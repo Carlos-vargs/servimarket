@@ -9,9 +9,8 @@ export default function CompanyDescription({ name, description }) {
                     textAlign="center"
                     borderRadius="20px"
                     alignItems="center"
-                    paddingBlock="44px"
                     backgroundColor="base_ligth"
-                    width="full" height="252px"
+                    paddingBlock={['0 44px', '0 44px', '30px', '44px',]}
                     paddingInline={['40px', '40px', '30px', '30px', '30px']}
                 >
                     <Heading as="h3"
@@ -22,7 +21,7 @@ export default function CompanyDescription({ name, description }) {
                     >
                         {name} bio
                     </Heading>
-                    <Text noOfLines={['3', '3', '4', '4', '4']}>
+                    <Text margin="0 !important" noOfLines={['3', '3', '4', '4', '4']}>
                         {description}
                     </Text>
                 </Stack>

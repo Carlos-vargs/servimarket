@@ -1,6 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 
-export default function NavMobile({ children }) {
+export default function NavMobile({ children, ...rest }) {
     return (
         <Flex
             as="span"
@@ -11,6 +11,7 @@ export default function NavMobile({ children }) {
             margin="0 !important"
             textTransform="capitalize"
             fontWeight="700"
+            {...rest}
             _before={{
                 content: '""',
                 position: "absolute",

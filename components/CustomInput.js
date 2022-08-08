@@ -1,18 +1,19 @@
-import { FormControl, FormErrorMessage, FormLabel, Input, Text } from "@chakra-ui/react";
+import { FormControl, FormErrorMessage, FormLabel, Input } from "@chakra-ui/react";
 
-export default function CustomInput({ name, errors, title, ...rest }) {
+export default function CustomInput({ name, errors, title, height = "56px", withTitle = true, ...rest }) {
 
     return (
         <FormControl isInvalid={errors}>
-            <FormLabel htmlFor={name} marginBlockEnd="2" textTransform="capitalize" >{title}</FormLabel>
+            {
+                withTitle && <FormLabel htmlFor={name} marginBlockEnd="2" textTransform="capitalize" >{title}</FormLabel>
+            }
             <Input
                 _invalid={{ boxShadow: `0 0 0 1px #ff0076`, borderColor: "base_pink" }}
                 _focus={{ boxShadow: `0 0 0 1px #ff0076`, borderColor: "base_pink" }}
                 backgroundColor="base"
-                paddingInline="30px"
-                paddingBlock="10px"
+                padding="10px 30px"
                 border="none"
-                height="56px"
+                height={height}
                 name={name}
                 {...rest}
                 id={name}

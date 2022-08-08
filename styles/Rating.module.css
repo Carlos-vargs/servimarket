@@ -4,12 +4,11 @@
 
 .rating label {
   cursor    : pointer;
-  transition: color .4s;
+  transition: color .3s;
 }
 
 .rating>label:hover,
 .rating>label:hover~label,
-.rating>input:checked~label,
-.rating:hover>input:checked~label {
+.rating> input:checked~label {
   color: #eee966;
 }

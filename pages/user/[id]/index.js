@@ -1,7 +1,9 @@
-import CompanyList from "@components/CompanyList";
-import UserDetails from "@components/UserDetails";
-import LayoutPage from "@components/LayoutPage";
+import dynamic from "next/dynamic";
 import { gql, request } from "graphql-request";
+import LayoutPage from '@components/LayoutPage'
+const UserDetails = dynamic(() => import('@components/UserDetails'))
+const CompanyList = dynamic(() => import('@components/CompanyList'))
+
 
 export default function Profile({ user, companies }) {
 
@@ -37,12 +39,6 @@ export async function getServerSideProps(ctx) {
         {
             id: ctx.query.id
         },
-        {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            }
-        }
     )
 
     if (!user) {

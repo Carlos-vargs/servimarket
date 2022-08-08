@@ -104,5 +104,4 @@ const theme = extendTheme({
     breakpoints,
 })
 
-
 export default theme

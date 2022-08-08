@@ -1,25 +1,31 @@
-import { Avatar, Button, ButtonGroup, Heading, Stack } from "@chakra-ui/react";
+import { Avatar, Button, ButtonGroup, Heading, Popover, PopoverArrow, PopoverBody, PopoverContent, PopoverTrigger, Portal, Stack } from "@chakra-ui/react";
 import CustomSearchInput from "@components/CustomSearchInput";
+import NextChakraLink from "@components/NextChakraLink";
 import EllipsisIcon from "@icons/EllipsisIcon";
+import { useSession } from "next-auth/react";
 import ShareIcon from "@icons/ShareIcon";
 
-export default function CompanyOptions({ name }) {
+export default function CompanyOptions({ name, ownerId }) {
+
+    const { data: session } = useSession()
+
     return (
         <Stack
-            gridGap="14px"
-            padding="44px"
-            textAlign="center"
+            backgroundColor="base_ligth"
+            paddingBlock="44px"
+            paddingInline={['0', '44px']}
             alignItems="center"
             borderRadius="20px"
-            w="full" height="400px"
-            backgroundColor="base_ligth"
+            textAlign="center"
+            gridGap="14px"
+            height="400px"
         >
             <Avatar
+                name={name}
                 width="134px"
                 height="134px"
                 border="8px solid"
                 borderRadius="full"
-                name={name}
                 borderColor="base !important"
             />
             <Heading
@@ -38,12 +44,36 @@ export default function CompanyOptions({ name }) {
                 <Button padding="0">
                     <ShareIcon />
                 </Button>
-                <Button>
-                    follow
-                </Button>
-                <Button padding="0">
-                    <EllipsisIcon />
-                </Button>
+                <NextChakraLink href="/coming-soon" >
+                    {
+                        session?.user.id === ownerId
+                            ? <Button>edit</Button>
+                            : <Button>follow</Button>
+                    }
+                </NextChakraLink>
+                <Popover>
+                    <PopoverTrigger>
+                        <Button variant="outline" padding="0">
+                            <EllipsisIcon />
+                        </Button>
+                    </PopoverTrigger>
+                    <Portal>
+                        <PopoverContent boxShadow="none !important" width="max-content" >
+                            <PopoverArrow />
+                            <PopoverBody textTransform="capitalize" paddingInline={0}>
+                                {
+                                    session?.user.id === ownerId && <NextChakraLink
+                                        display="block" _hover={{ backgroundColor: "gray.100" }}
+                                        paddingInline={3} href="/company/create-service"
+                                    >
+                                        create service
+                                    </NextChakraLink>
+                                }
+                                <NextChakraLink display="block" href="#" _hover={{ backgroundColor: "gray.100" }} paddingInline="3">report</NextChakraLink>
+                            </PopoverBody>
+                        </PopoverContent>
+                    </Portal>
+                </Popover>
             </ButtonGroup>
         </Stack>
     );
