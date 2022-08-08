@@ -1,22 +1,27 @@
-import { Heading } from "@chakra-ui/react";
-import CompanyForm from "@components/CompanyForm";
-import LayoutPage from "@components/LayoutPage";
+import dynamic from "next/dynamic";
 import Wrapper from "@components/Wrapper";
-import { gql, request } from "graphql-request";
+import { Heading } from "@chakra-ui/react";
 import { getSession } from "next-auth/react";
+import { gql, request } from "graphql-request";
+import LayoutPage from "@components/LayoutPage";
+const CompanyForm = dynamic(() => import("@components/CompanyForm"));
 
 export default function CreateNewCompany({ categories }) {
 
     return (
         <LayoutPage titleHead="Create Company">
             <Wrapper
-                color="white"
-                direction="column"
+                paddingInline={['10px', '40px', '60px', '100px', '0']}
+                marginInline="auto !important"
                 paddingBlockStart="110px"
                 justifyContent="center"
-                textAlign="center"
-                gridGap="60px"
                 paddingBlockEnd="60px"
+                textAlign="center"
+                direction="column"
+                maxWidth="1073px"
+                gridGap="60px"
+                color="white"
+                width="full"
             >
                 <Heading
                     textTransform="capitalize"
@@ -24,7 +29,7 @@ export default function CreateNewCompany({ categories }) {
                 >
                     create new company
                 </Heading>
-                <CompanyForm categories={categories} />
+                <CompanyForm data={categories} />
             </Wrapper>
         </LayoutPage>
     );
@@ -38,7 +43,7 @@ export async function getServerSideProps(ctx) {
         return {
             redirect: {
                 permanent: false,
-                destination: "/404"
+                destination: "/login"
             }
         }
     }
@@ -47,7 +52,7 @@ export async function getServerSideProps(ctx) {
         process.env.NEXT_PUBLIC_GRAPHQL_URL,
         gql`
           query categories{
-            categories{
+            categories(limit: 20){
                 id 
                 name
             }

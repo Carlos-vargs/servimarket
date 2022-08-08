@@ -1,12 +1,17 @@
 import { Flex } from "@chakra-ui/react";
 
-export default function Wrapper({ children, direction, ...props }) {
+export default function Wrapper({
+    paddingInline = ['20px', '40px', '60px', '100px', '120px', '196px'],
+    maxWidth = "1689px",
+    direction,
+    children,
+    ...props }) {
     return (
         <Flex
             {...props}
-            maxWidth="1689px"
+            maxWidth={maxWidth}
             direction={direction}
-            paddingInline={['20px', '40px', '60px', '100px', '120px', '196px']}
+            paddingInline={paddingInline}
         >
             {children}
         </Flex>

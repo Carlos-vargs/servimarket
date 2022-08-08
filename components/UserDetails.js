@@ -1,7 +1,9 @@
-import { Avatar, Flex, Heading, Stack, Text } from "@chakra-ui/react";
-import AuthUserOptions from "@components/AuthUserOptions";
+import dynamic from "next/dynamic";
+import Wrapper from '@components/Wrapper';
 import { formatDistanceToNowStrict } from 'date-fns'
-import Wrapper from "@components/Wrapper";
+import { Avatar, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+const AuthUserOptions = dynamic(() => import('@components/AuthUserOptions'))
+
 
 export default function UserDetails({ user }) {
 
@@ -11,15 +13,14 @@ export default function UserDetails({ user }) {
             justifyContent="center"
             marginBlockStart="0 !important"
             borderBlockEnd="1px solid rgba(255,255,255,.1)"
-            height={['280px', '280px', '220px', '220px', '134px']}
-            // pb="40px"
+            height={['200px', '200px', '200px', '134px', '134px']}
         >
             <Wrapper
                 width="full"
                 gridGap="20px"
                 alignItems="center"
-                direction={["column", "column", "column", "column", "row"]}
-                justifyContent={['center', 'center', 'center', 'center', 'space-between']}
+                direction={['column', 'column', 'column', 'row', 'row']}
+                justifyContent={['center', 'center', 'center', 'space-between', 'space-between']}
             >
                 <Stack
                     color="white"
@@ -30,9 +31,10 @@ export default function UserDetails({ user }) {
                     gridGap="14px"
                 >
                     <Avatar name={user.name}
-                        width={['140px', '140px', '180px', '180px', '180px',]}
                         height={['140px', '140px', '180px', '180px', '180px',]}
+                        width={['140px', '140px', '180px', '180px', '180px',]}
                         borderColor="base !important"
+                        
                         border="10px solid"
                         borderRadius="full"
                     />

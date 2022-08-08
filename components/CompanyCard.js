@@ -5,7 +5,10 @@ import NextChakraLink from "@components/NextChakraLink";
 export default function CompanyCard({ company }) {
 
     return (
-        <NextChakraLink href={`/company/${company.id}`} >
+        <NextChakraLink href={{
+            pathname: '/company/[id]',
+            query: { id: company.id },
+        }} >
             <Stack
                 color="rgba(255,255,255,.66)"
                 backgroundColor="base_ligth"
@@ -13,6 +16,7 @@ export default function CompanyCard({ company }) {
                 position="relative"
                 overflow="hidden"
                 cursor="pointer"
+                textAlign="center"
                 gridGap="64px"
                 maxWidth="300px"
                 paddingBlockEnd="20px"
@@ -22,7 +26,7 @@ export default function CompanyCard({ company }) {
                     '&>div:first-of-type': { transform: "translate(-50%, 110px)" }
                 }}
             >
-                <Image src={defaultCompanyCover.src} />
+                <Image src={defaultCompanyCover.src} alt="default background" />
                 <Stack
                     transition="all .3s ease-in-out"
                     transform="translate(-50%, 116px)"
@@ -37,7 +41,7 @@ export default function CompanyCard({ company }) {
                     height="120px"
                 >
                     <Avatar name={company.name} size="lg" marginBlockStart="-30px" />
-                    <Heading as="h5" fontSize="18px" color="white" noOfLines={1} paddingInline="8px" title={company.name} >{company.name}</Heading>
+                    <Heading as="h5" fontSize="18px" color="white" noOfLines={1} paddingInline="12px" title={company.name} >{company.name}</Heading>
                     <Heading as="h6" fontSize="14px" fontWeight="400">
                         {
                             company.productCount !== 0

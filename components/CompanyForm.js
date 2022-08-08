@@ -1,6 +1,7 @@
 import fixErrorsMessage from "@components/fixErrorsMessage";
 import CustomTextTarea from "@components/CustomTextTarea";
-import { Button, VStack } from "@chakra-ui/react";
+import { Button, Flex, VStack } from "@chakra-ui/react";
+import CategoryForm from "@components/CategoryForm";
 import CustomInput from "@components/CustomInput";
 import MultiSelect from "@components/MultiSelect";
 import { gql, request } from "graphql-request";
@@ -8,12 +9,27 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import SaveIcon from "@icons/SaveIcon";
 import { useFormik } from "formik";
+import { useEffect, useState } from "react";
 
-export default function CompanyForm({ categories = [] }) {
+export default function CompanyForm({ data = [] }) {
 
     const router = useRouter()
 
     const { data: session } = useSession()
+
+    const [categories, setCategories] = useState(data)
+    const [newCategory, setNewCategory] = useState({ id: "", name: "" })
+    const [selectedValues, setSelectedValues] = useState([])
+
+    useEffect(() => {
+
+        if (newCategory.id !== "") {
+            setCategories([...categories, newCategory])
+            setSelectedValues([...selectedValues, { value: newCategory.id, label: newCategory.name }])
+        }
+
+    }, [newCategory]);
+
 
     const formik = useFormik({
         initialValues: {
@@ -25,7 +41,12 @@ export default function CompanyForm({ categories = [] }) {
         },
         onSubmit: async values => {
 
+            if (selectedValues.length !== 0) {
+                values.categories.sync = selectedValues.map(option => option.value)
+            }
+
             const input = {}
+
             input.name = values.name
 
             if (values.description !== '') {
@@ -64,13 +85,17 @@ export default function CompanyForm({ categories = [] }) {
                     }
                 )
 
-                router.push(`/user/${session.user.id}`)
+                router.push({
+                    pathname: '/user/[id]',
+                    query: { id: session.user.id },
+                })
 
             } catch ({ response: { errors } }) {
 
                 formik.setErrors(fixErrorsMessage(errors[0].extensions.validation))
 
             }
+
         },
     })
 
@@ -81,8 +106,6 @@ export default function CompanyForm({ categories = [] }) {
             height="full"
             color="white"
             spacing="38px"
-            maxWidth="1073px"
-            marginInline="auto"
             paddingBlock="40px"
             borderRadius="12px"
             alignContent="flex-start"
@@ -99,16 +122,21 @@ export default function CompanyForm({ categories = [] }) {
                 errors={formik.errors.name}
                 onChange={formik.handleChange}
             />
-            <MultiSelect
-                isMulti
-                required
-                name="categories"
-                data={categories}
-                title="categories"
-                placeholder="categories"
-                errors={formik.errors.categories}
-                onChange={(categories) => formik.setFieldValue('categories.sync', categories.map(category => category.value))}
-            />
+            <Flex flexWrap="wrap" width="full" alignItems="center" justifyContent="space-between" position="relative" >
+                <MultiSelect
+                    isMulti
+                    required
+                    name="categories"
+                    data={categories}
+                    title="categories"
+                    value={selectedValues}
+                    placeholder="categories"
+                    width="calc(100% - 60px)"
+                    errors={formik.errors.categories}
+                    onChange={(e) => setSelectedValues(e)}
+                />
+                <CategoryForm setNewCategory={setNewCategory} />
+            </Flex>
             <CustomTextTarea
                 name="description"
                 title="description"

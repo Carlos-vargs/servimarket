@@ -1,6 +1,7 @@
-import LoginForm from "@components/LoginForm";
-import LayoutForm from "@components/LayoutForm";
+import dynamic from "next/dynamic";
 import { getSession } from "next-auth/react";
+import LayoutForm from '@components/LayoutForm'
+const LoginForm = dynamic(() => import("@components/LoginForm"));
 
 export default function Login() {
 

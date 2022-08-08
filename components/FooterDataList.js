@@ -10,6 +10,7 @@ export default function FooterDataList({ data, title }) {
                 {
                     data.map(e => <NextChakraLink
                         _hover={{ color: "base_pink" }}
+                        _focus={{ color: "base_pink" }}
                         transition="all .3s ease-in-out"
                         href={e.href}
                         key={nanoid()}

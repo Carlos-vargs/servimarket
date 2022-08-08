@@ -1,19 +1,28 @@
-import CompanyDescription from "@components/CompanyDescription";
-import CompanyOptions from "@components/CompanyOptions";
+import dynamic from "next/dynamic";
+import { Flex, Stack } from "@chakra-ui/react";
 import CategoryList from "@components/CategoryList";
-import { Stack } from "@chakra-ui/react";
+import CompanyDescription from "@components/CompanyDescription";
+const CompanyOptions = dynamic(() => import('@components/CompanyOptions'))
+
 
 export default function CompanyDetails({ company, categories }) {
+
     return (
-        <Stack
+        <Flex
+            backgroundColor="base_ligth"
+            justifyContent="center"
+            width="fit-content"
+            borderRadius="20px"
+            marginInline="auto"
+            overflow="hidden"
+            flexWrap="wrap"
             color="white"
-            gridGap="30px"
-            maxWidth="640px"
-            width={['auto', 'auto', 'auto', 'auto', '412px', '412px']}
         >
-            <CompanyOptions name={company.name} />
-            <CompanyDescription name={company.name} description={company.description} />
-            <CategoryList categories={categories} />
-        </Stack>
+            <CompanyOptions name={company.name} ownerId={company.user.id}  />
+            <Stack maxWidth="630px" >
+                <CompanyDescription name={company.name} description={company.description} />
+                <CategoryList categories={categories} />
+            </Stack>
+        </Flex>
     );
 }

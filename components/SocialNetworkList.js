@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 export default function SocialNetworkList() {
 
     return (
-        <HStack spacing="12px" justifyContent="center" >
+        <HStack gridGap="12px" justifyContent="center" flexWrap="wrap" >
             {
                 data.map(e => <NextChakraLink
                     key={nanoid()}
@@ -18,6 +18,7 @@ export default function SocialNetworkList() {
                     display="flex"
                     alignItems="center"
                     borderRadius="full"
+                    margin="0 !important"
                     justifyContent="center"
                     title={e.socialNetwork}
                     boxShadow="0 0 0 48px rgba(255,255,255,.1) inset"

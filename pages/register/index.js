@@ -1,6 +1,8 @@
-import LayoutForm from "@components/LayoutForm";
-import RegisterForm from "@components/RegisterForm";
+
+import dynamic from "next/dynamic";
 import { getSession } from "next-auth/react";
+import LayoutForm from '@components/LayoutForm'
+const RegisterForm = dynamic(() => import("@components/RegisterForm"));
 
 export default function Register() {
     return (

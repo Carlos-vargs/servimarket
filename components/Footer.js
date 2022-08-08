@@ -1,27 +1,48 @@
-import SocialNetworkList from "@components/SocialNetworkList";
-import FooterDataList from "@components/FooterDataList";
-import { Flex, Text, VStack } from "@chakra-ui/react";
-import Newsletter from "@components/Newsletter";
-import Wrapper from '@components/Wrapper';
+import dynamic from "next/dynamic";
 import Logo from "@components/Logo";
+import Wrapper from '@components/Wrapper';
+import { Flex, Text, VStack } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+const Newsletter = dynamic(() => import("@components/Newsletter"));
+const FooterDataList = dynamic(() => import("@components/FooterDataList"));
+const SocialNetworkList = dynamic(() => import("@components/SocialNetworkList"));
 
 export default function Footer() {
 
+    const { data: session } = useSession()
+    const id = session?.user.id
+
     const account = [
-        { name: "profile", href: "/#" },
-        { name: "my companies", href: "/#" },
-        { name: "settings", href: "/#" },
+        {
+            name: "profile",
+            href: id ? {
+                pathname: '/user/[id]',
+                query: { id },
+            } : "/login"
+        },
+        {
+            name: "my companies",
+            href: id ? {
+                pathname: '/user/[id]',
+                query: { id },
+            } : "/login"
+        },
+        {
+            name: "settings",
+            href: "/coming-soon"
+        },
     ]
 
     const serviplace = [
-        { name: "All services", href: "/#" },
-        { name: "Trading services", href: "/#" },
-        { name: "Terms of Service", href: "/#" },
-        { name: "Privacy Policy", href: "/#" },
+        { name: "All services", href: "/coming-soon" },
+        { name: "Trading services", href: "/coming-soon" },
+        { name: "Terms of Service", href: "/coming-soon" },
+        { name: "Privacy Policy", href: "/coming-soon" },
     ]
 
     return <>
         <Flex
+            // marginBlockStart="0 !important"
             backgroundColor="base_ligth"
             textTransform="capitalize"
             justifyContent="center"
@@ -29,6 +50,7 @@ export default function Footer() {
             alignItems="center"
             color="white"
             width="full"
+            as="footer"
         >
             <Wrapper
                 width="full"

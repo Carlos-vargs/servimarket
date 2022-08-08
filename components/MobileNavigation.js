@@ -3,9 +3,8 @@ import MenuIcon from "@icons/MenuIcon";
 import { Avatar, Stack } from "@chakra-ui/react";
 import { useState } from "react";
 import NavMobile from "@components/NavMobile";
-import { signOut } from "next-auth/react";
 
-export default function MobileNavigation({ data, session }) {
+export default function MobileNavigation({ data, session, handleSignOut }) {
 
     const [isOpen, setIsOpen] = useState(false)
 
@@ -32,7 +31,7 @@ export default function MobileNavigation({ data, session }) {
                 top="0"
             >
                 {
-                    session && <NextChakraLink onClick={handleClick} href={`/user/${session.user.id}`} >
+                    session && <NextChakraLink onClick={handleClick} title={session.user.name} href={{ pathname: '/user/[id]', query: { id: session.user.id }, }} >
                         <Avatar size="2xl" name={session.user.name} />
                     </NextChakraLink>
                 }
@@ -50,7 +49,7 @@ export default function MobileNavigation({ data, session }) {
                     ))
                 }
                 {
-                    session && <NavMobile onClick={signOut}>
+                    session && <NavMobile onClick={handleSignOut}>
                         Log out
                     </NavMobile>
                 }

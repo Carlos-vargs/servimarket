@@ -1,10 +1,16 @@
+import dynamic from "next/dynamic";
 import Logo from "@components/Logo";
 import Wrapper from "@components/Wrapper";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { request, gql } from "graphql-request";
 import { Hide, Show } from '@chakra-ui/media-query';
-import DesktopNavigation from "@components/DesktopNavigation";
-import MobileNavigation from "@components/MobileNavigation";
+const DesktopNavigation = dynamic(() => import("@components/DesktopNavigation"), { ssr: false });
+const MobileNavigation = dynamic(() => import("@components/MobileNavigation"), { ssr: false });
 
-export default function Header({ session }) {
+export default function Header() {
+
+    const { data: session } = useSession()
 
     const navigation = [
         {
@@ -13,15 +19,15 @@ export default function Header({ session }) {
         },
         {
             name: "Explore",
-            url: "/explore",
+            url: "/#explore",
         },
         {
             name: "About",
-            url: "/about",
+            url: "/#about",
         },
         {
             name: "Contact",
-            url: "/contact",
+            url: "/coming-soon",
         },
     ];
 
@@ -36,21 +42,56 @@ export default function Header({ session }) {
         }
     )
 
+    async function handleSignOut() {
+
+        try {
+            const { status, message } = await request(
+                process.env.NEXT_PUBLIC_GRAPHQL_URL,
+                gql`
+                mutation logout{
+                    logout{
+                        status
+                        message
+                    }
+                }
+            `,
+                {},
+                {
+                    'Authorization': `Bearer ${session?.token}`,
+                }
+            )
+
+            console.log(status, message)
+
+            signOut()
+
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+
+
     return (
         <Wrapper
+            top={0}
+            zIndex={6}
+            as="header"
             width="full"
             height="100px"
+            position="sticky"
+            alignItems="center"
             marginInline="auto"
             backgroundColor="base"
-            alignItems="center"
+
             justifyContent="space-between"
         >
-           <Logo />
+            <Logo />
             <Hide above="lg">
-                <MobileNavigation data={navigation} session={session} />
+                <MobileNavigation data={navigation} session={session} handleSignOut={handleSignOut} />
             </Hide>
-            <Show above="lg" >
-                <DesktopNavigation data={navigation} session={session} />
+            <Show above="lg">
+                <DesktopNavigation data={navigation} session={session} handleSignOut={handleSignOut} />
             </Show>
         </Wrapper>
     );

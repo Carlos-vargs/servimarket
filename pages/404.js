@@ -28,7 +28,7 @@ export default function Custom404() {
                         gridGap={['40px', '40px', '40px', '0px', '0px']}
                     >
                         <Stack paddingInlineEnd={['0px', '0px', '0px', '46px', '46px']} gridGap="10px">
-                            <Heading as="h2" fontSize="36px">Don't Cry</Heading>
+                            <Heading as="h2" fontSize="36px">{"Don't Cry"}</Heading>
                             <NextChakraLink
                                 justifyContent={['center', 'center', 'center', 'flex-start', 'flex-start',]}
                                 marginInline={['auto', 'auto', '0px', '0px', '0px']}
@@ -48,13 +48,13 @@ export default function Custom404() {
                                 '1px solid rgba(255,255,255,.2)'
                             ]}
                         >
-                            <Heading as="h2" fontSize="24px">It's just a 404 error...!</Heading>
+                            <Heading as="h2" fontSize="24px">{"It's just a 404 error...!"}</Heading>
                             <Text noOfLines={[4, 4, 4, 3, 3]} maxWidth="326px" >
                                 The page you are looking for is not available in the moments please try to anothers away thank you!
                             </Text>
                         </Stack>
                     </Flex>
-                    <Image src={statusCodeNotFound.src} width="700px" height="250px" alignSelf="flex-end" objectFit="contain" />
+                    <Image src={statusCodeNotFound.src} alt="404" width="700px" height="250px" alignSelf="flex-end" objectFit="contain" />
                 </Stack>
             </Flex>
         </>

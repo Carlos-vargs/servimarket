@@ -1,21 +1,27 @@
-import { Heading } from "@chakra-ui/react";
-import LayoutPage from "@components/LayoutPage";
-import ServiceForm from "@components/ServiceForm";
+import dynamic from "next/dynamic";
 import Wrapper from "@components/Wrapper";
-import { gql, request } from "graphql-request";
+import { Heading } from "@chakra-ui/react";
 import { getSession } from "next-auth/react";
+import { gql, request } from "graphql-request";
+import LayoutPage from "@components/LayoutPage";
+const ServiceForm = dynamic(() => import("@components/ServiceForm"));
 
 export default function createNewService({ companies }) {
     return (
         <LayoutPage titleHead="Create Service">
             <Wrapper
+                paddingInline={['10px', '40px', '60px', '100px', '0']}
+                marginInline="auto !important"
                 paddingBlockStart="110px"
                 justifyContent="center"
                 paddingBlockEnd="60px"
-                direction="column"
+                alignItems="center"
                 textAlign="center"
+                direction="column"
+                maxWidth="1073px"
                 gridGap="60px"
                 color="white"
+                width="full"
             >
                 <Heading
                     textTransform="capitalize"
@@ -47,15 +53,15 @@ export async function getServerSideProps(ctx) {
         `,
         {},
         {
-            'Authorization': `Bearer ${session.token}`,
+            'Authorization': `Bearer ${session?.token}`,
         }
     )
-
-    if (!me || !session.user.id) {
+    
+    if (!me || !session?.user.id) {
         return {
             redirect: {
                 permanent: false,
-                destination: "/404"
+                destination: "/login"
             }
         }
     }

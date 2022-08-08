@@ -1,8 +1,10 @@
-import CompanyDetails from "@components/CompanyDetails";
+import dynamic from "next/dynamic";
 import Wrapper from "@components/Wrapper";
-import ProductList from "@components/ProductList";
-import LayoutPage from "@components/LayoutPage";
+import { getSession } from "next-auth/react";
 import { gql, request } from "graphql-request";
+import LayoutPage from "@components/LayoutPage";
+const ProductList = dynamic(() => import("@components/ProductList"));
+const CompanyDetails = dynamic(() => import("@components/CompanyDetails"));
 
 export default function Company({ company, products, categories }) {
 
@@ -11,19 +13,22 @@ export default function Company({ company, products, categories }) {
             <Wrapper
                 marginInline="auto !important"
                 justifyContent="center"
-                flexWrap="wrap-reverse"
                 paddingBlock="100px"
-                gridGap="30px"
+                direction="column"
+                gridRowGap="30px"
+                flexWrap="wrap"
                 width="full"
             >
-                <ProductList products={products} />
                 <CompanyDetails company={company} categories={categories} />
+                <ProductList products={products} />
             </Wrapper>
         </LayoutPage>
     );
 }
 
 export async function getServerSideProps(ctx) {
+
+    const session = await getSession(ctx)
 
     const { company } = await request(
         process.env.NEXT_PUBLIC_GRAPHQL_URL,
@@ -33,28 +38,33 @@ export async function getServerSideProps(ctx) {
                 id 
                 name
                 description
+                user{
+                    id
+                }
                 products{
                     id 
-                    name
+                    name 
                     description
                     avg
-                    rating{
-                        user{
-                            id
-                            name
-                        }
+                    usersRated{
+                        id
+                        name
                     }
+                    hasRated
                 }
                 categories{
                     id
                     name
                 }
             }
-          }
+        }
         `,
         {
             id: ctx.query.id
         },
+        {
+            'Authorization': `Bearer ${session?.token}`,
+        }
     )
 
     if (!company) {

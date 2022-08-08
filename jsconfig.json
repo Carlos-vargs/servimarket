@@ -16,7 +16,7 @@
             "@components/*": [
                 "components/*"
             ],
-            "@public/*":[
+            "@public/*": [
                 "public/*"
             ]
         },

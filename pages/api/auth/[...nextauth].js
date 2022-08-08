@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { gql, request } from "graphql-request";
+import fixErrorsMessage from "@components/fixErrorsMessage";
 
 export default NextAuth({
 	callbacks: {
@@ -31,8 +32,8 @@ export default NextAuth({
 					const { login } = await request(
 						process.env.NEXT_PUBLIC_GRAPHQL_URL,
 						gql`
-						  mutation login($email: String!, $password: String! ) {
-								login(email: $email, password: $password) {
+						  mutation login($input: LoginInput!) {
+								login(input: $input) {
 									user{
 										id
 										name
@@ -43,8 +44,10 @@ export default NextAuth({
 							}
 						`,
 						{
-							email: credentials?.email,
-							password: credentials?.password,
+							input: {
+								email: credentials?.email,
+								password: credentials?.password,
+							}
 						},
 					)
 
@@ -53,8 +56,9 @@ export default NextAuth({
 				} catch ({ response: { errors } }) {
 
 					throw new Error(JSON.stringify({
-						error: errors[0].extensions.validation,
+						error: fixErrorsMessage(errors[0].extensions.validation),
 					}))
+
 
 				}
 
@@ -70,8 +74,8 @@ export default NextAuth({
 					const { register } = await request(
 						process.env.NEXT_PUBLIC_GRAPHQL_URL,
 						gql`
-						  mutation register($name: String!, $email: String!, $password: String!, $password_confirmation: String!) {
-								register(name: $name, email: $email, password: $password, password_confirmation: $password_confirmation ) {
+						  mutation register($input: RegisterInput!) {
+								register(input: $input) {
 									user{
 										id
 										name
@@ -82,10 +86,12 @@ export default NextAuth({
 							}
 						`,
 						{
-							name: credentials?.name,
-							email: credentials?.email,
-							password: credentials?.password,
-							password_confirmation: credentials?.password_confirmation
+							input: {
+								name: credentials?.name,
+								email: credentials?.email,
+								password: credentials?.password,
+								password_confirmation: credentials?.password_confirmation
+							}
 						},
 					)
 
@@ -94,7 +100,7 @@ export default NextAuth({
 				} catch ({ response: { errors } }) {
 
 					throw new Error(JSON.stringify({
-						error: errors[0].extensions.validation,
+						error: fixErrorsMessage(errors[0].extensions.validation),
 					}))
 
 				}

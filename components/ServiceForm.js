@@ -9,7 +9,7 @@ import SaveIcon from "@icons/SaveIcon";
 import { useFormik } from "formik";
 import MultiSelect from "@components/MultiSelect";
 
-export default function ServiceForm({companies}) {
+export default function ServiceForm({ companies }) {
 
     const router = useRouter()
 
@@ -43,7 +43,10 @@ export default function ServiceForm({companies}) {
                     }
                 )
 
-                router.push(`/company/${formik.values.company_id}`)
+                router.push({
+                    pathname: '/company/[id]',
+                    query: { id: formik.values.company_id },
+                })
 
             } catch ({ response: { errors } }) {
 
@@ -60,10 +63,9 @@ export default function ServiceForm({companies}) {
             height="full"
             color="white"
             spacing="38px"
-            maxWidth="1073px"
-            marginInline="auto"
             paddingBlock="40px"
             borderRadius="12px"
+            alignItems="center"
             alignContent="flex-start"
             backgroundColor="base_ligth"
             onSubmit={formik.handleSubmit}
@@ -78,12 +80,12 @@ export default function ServiceForm({companies}) {
                 errors={formik.errors.name}
                 onChange={formik.handleChange}
             />
-             <MultiSelect
+            <MultiSelect
                 required
                 isClearable
                 name="company_id"
                 data={companies}
-                title="Companies"
+                title="Company"
                 placeholder="Select company"
                 value={formik.values.company_id}
                 errors={formik.errors.company_id}

@@ -1,6 +1,6 @@
 import UserPadlockIcon from "@icons/UserPadlockIcon";
 import CustomInput from "@components/CustomInput";
-import { Button, Flex, VStack } from "@chakra-ui/react";
+import { Button, VStack } from "@chakra-ui/react";
 import { signIn } from "next-auth/react";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
@@ -23,7 +23,7 @@ export default function LoginForm() {
                 router.push('/')
             }
             
-            formik.setErrors(JSON.parse(error))
+            formik.setErrors((JSON.parse(error)))
 
         },
     });
