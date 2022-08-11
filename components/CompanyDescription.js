@@ -10,8 +10,6 @@ export default function CompanyDescription({ name, description }) {
                     borderRadius="20px"
                     alignItems="center"
                     backgroundColor="base_ligth"
-                    paddingBlock={['0 44px', '0 44px', '30px', '44px',]}
-                    paddingInline={['40px', '40px', '30px', '30px', '30px']}
                 >
                     <Heading as="h3"
                         noOfLines={2}

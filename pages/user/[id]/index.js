@@ -26,7 +26,7 @@ export async function getServerSideProps(ctx) {
                 id
                 name 
                 email
-                created_at
+                createdAt
                 companies{
                     id
                     name

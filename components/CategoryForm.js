@@ -1,6 +1,6 @@
 import { Button, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, useDisclosure, VStack } from "@chakra-ui/react";
 import PlusIcon from "@icons/PlusIcon"
-import fixErrorsMessage from "@components/fixErrorsMessage";
+import fixErrorsMessage from "@utils/fixErrorsMessage";
 import { useSession } from "next-auth/react";
 import { useFormik } from "formik";
 import CustomInput from "@components/CustomInput";
