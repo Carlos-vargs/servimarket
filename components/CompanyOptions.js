@@ -11,9 +11,9 @@ export default function CompanyOptions({ name, ownerId }) {
 
     return (
         <Stack
+            paddingInline={['20px', '44px']}
             backgroundColor="base_ligth"
             paddingBlock="44px"
-            paddingInline={['0', '44px']}
             alignItems="center"
             borderRadius="20px"
             textAlign="center"

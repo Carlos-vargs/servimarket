@@ -5,6 +5,7 @@ import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { request, gql } from "graphql-request";
 import { Hide, Show } from '@chakra-ui/media-query';
+import { Flex } from "@chakra-ui/react";
 const DesktopNavigation = dynamic(() => import("@components/DesktopNavigation"), { ssr: false });
 const MobileNavigation = dynamic(() => import("@components/MobileNavigation"), { ssr: false });
 
@@ -73,26 +74,29 @@ export default function Header() {
 
 
     return (
-        <Wrapper
+        <Flex
             top={0}
             zIndex={6}
             as="header"
             width="full"
             height="100px"
             position="sticky"
-            alignItems="center"
-            marginInline="auto"
             backgroundColor="base"
-
-            justifyContent="space-between"
+            justifyContent="center"
         >
-            <Logo />
-            <Hide above="lg">
-                <MobileNavigation data={navigation} session={session} handleSignOut={handleSignOut} />
-            </Hide>
-            <Show above="lg">
-                <DesktopNavigation data={navigation} session={session} handleSignOut={handleSignOut} />
-            </Show>
-        </Wrapper>
+            <Wrapper
+                width="full"
+                alignItems="center"
+                justifyContent="space-between"
+            >
+                <Logo />
+                <Hide above="lg">
+                    <MobileNavigation data={navigation} session={session} handleSignOut={handleSignOut} />
+                </Hide>
+                <Show above="lg">
+                    <DesktopNavigation data={navigation} session={session} handleSignOut={handleSignOut} />
+                </Show>
+            </Wrapper>
+        </Flex>
     );
 }

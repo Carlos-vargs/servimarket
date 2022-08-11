@@ -14,10 +14,10 @@ export default function SwiperHead({ title, navigation = true }) {
                     variant="outline"
                     gridGap="10px"
                 >
-                    <Button transform="rotate(180deg)" padding="8px" onClick={() => swiper.slidePrev()}>
+                    <Button width="40px" height="40px" transform="rotate(180deg)" padding="8px" onClick={() => swiper.slidePrev()}>
                         <ArrowIcon />
                     </Button>
-                    <Button padding="8px" onClick={() => swiper.slideNext()} >
+                    <Button width="40px" height="40px" padding="8px" onClick={() => swiper.slideNext()} >
                         <ArrowIcon />
                     </Button>
                 </ButtonGroup>

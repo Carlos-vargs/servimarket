@@ -1,4 +1,4 @@
-import fixErrorsMessage from "@components/fixErrorsMessage";
+import fixErrorsMessage from "@utils/fixErrorsMessage";
 import CustomTextTarea from "@components/CustomTextTarea";
 import CustomInput from "@components/CustomInput";
 import { Button, VStack } from "@chakra-ui/react";
@@ -19,7 +19,7 @@ export default function ServiceForm({ companies }) {
         initialValues: {
             name: '',
             description: '',
-            company_id: '',
+            companyId: '',
         },
         onSubmit: async input => {
 
@@ -45,7 +45,7 @@ export default function ServiceForm({ companies }) {
 
                 router.push({
                     pathname: '/company/[id]',
-                    query: { id: formik.values.company_id },
+                    query: { id: formik.values.companyId },
                 })
 
             } catch ({ response: { errors } }) {
@@ -83,13 +83,13 @@ export default function ServiceForm({ companies }) {
             <MultiSelect
                 required
                 isClearable
-                name="company_id"
+                name="companyId"
                 data={companies}
                 title="Company"
                 placeholder="Select company"
-                value={formik.values.company_id}
-                errors={formik.errors.company_id}
-                onChange={(company) => formik.setFieldValue('company_id', company?.value)}
+                value={formik.values.companyId}
+                errors={formik.errors.companyId}
+                onChange={(company) => formik.setFieldValue('companyId', company?.value)}
             />
             <CustomTextTarea
                 required

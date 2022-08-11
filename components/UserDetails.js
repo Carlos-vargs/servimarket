@@ -40,7 +40,7 @@ export default function UserDetails({ user }) {
                     />
                     <Stack>
                         <Heading as="h5" margin="0" lineHeight="heading" fontSize="18px" >{user.name}</Heading>
-                        <Text as="span" margin="0 !important" >Joined {formatDistanceToNowStrict(new Date(user.created_at), { addSuffix: true })}</Text>
+                        <Text as="span" margin="0 !important" >Joined {formatDistanceToNowStrict(new Date(user.createdAt), { addSuffix: true })}</Text>
                     </Stack>
                 </Stack>
                 <AuthUserOptions userId={user.id} />
