@@ -1,4 +1,4 @@
-import fixErrorsMessage from "@components/fixErrorsMessage";
+import fixErrorsMessage from "@utils/fixErrorsMessage";
 import CustomTextTarea from "@components/CustomTextTarea";
 import { Button, Flex, VStack } from "@chakra-ui/react";
 import CategoryForm from "@components/CategoryForm";

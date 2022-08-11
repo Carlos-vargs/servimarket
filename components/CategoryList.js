@@ -4,15 +4,16 @@ export default function CategoryList({ categories = [] }) {
     return (
         <>
             {
-                categories.length !== 0 && <Flex flexWrap="wrap"
-                    color="white" gridGap="8px" padding="0 30px 44px"
+                categories.length !== 0 && <Flex
+                    flexWrap="wrap"
+                    color="white" gridGap="8px"
                     justifyContent={['center', 'center', 'center', 'center', 'flex-start',]}
                 >
                     {
                         categories.map((category) => <Flex
                             transition="color .3s ease-in-out"
                             justifyContent="center"
-                            bgColor="base"
+                            backgroundColor="base"
                             alignItems="center"
                             textAlign="center"
                             padding="6px 14px"

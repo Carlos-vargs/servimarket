@@ -18,7 +18,10 @@
             ],
             "@public/*": [
                 "public/*"
-            ]
+            ],
+            "@utils/*": [
+                "utils/*"
+            ],
         },
         "types": [
             "node",

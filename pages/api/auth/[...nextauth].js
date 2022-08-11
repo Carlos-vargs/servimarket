@@ -1,7 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { gql, request } from "graphql-request";
-import fixErrorsMessage from "@components/fixErrorsMessage";
+import fixErrorsMessage from "@utils/fixErrorsMessage";
 
 export default NextAuth({
 	callbacks: {

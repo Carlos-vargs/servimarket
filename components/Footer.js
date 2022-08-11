@@ -42,7 +42,6 @@ export default function Footer() {
 
     return <>
         <Flex
-            // marginBlockStart="0 !important"
             backgroundColor="base_ligth"
             textTransform="capitalize"
             justifyContent="center"

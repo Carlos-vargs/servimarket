@@ -16,12 +16,13 @@ export default function PrimeData() {
             height="670px"
             position="relative"
             backgroundColor="base_ligth"
+            marginBlockStart="0 !important"
         >
             <Particles className="customParticles" params={particleConfig} />
             <Wrapper
                 marginInline="auto !important"
                 justifyContent="center"
-                paddingBlock="100px"
+                paddingBlock="100px"                                    
                 alignItems="center"
                 direction="column"
                 flexWrap="wrap"

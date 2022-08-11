@@ -17,7 +17,7 @@ export default function FormRating({ productId, hasRated, setRatings, setProduct
     const formik = useFormik({
         initialValues: {
             rating: '',
-            product_id: productId,
+            productId,
         },
         onSubmit: async (input) => {
 
