@@ -19,15 +19,17 @@ export default function CompanyDetails({ company, categories }) {
             color="white"
         >
             <CompanyOptions name={company.name} ownerId={company.user.id} />
-            <Stack
-                spacing="44px"
-                maxWidth="630px"
-                paddingBlock={['22px 44px', '22px 44px', '44px']}
-                paddingInline={['44px', '30px 44px', '30px 44px', '30px 44px', '30px 44px']}
-            >
-                <CompanyDescription name={company.name} description={company.description} />
-                <CategoryList categories={categories} />
-            </Stack>
+            {
+                company.description && categories && <Stack
+                    spacing="44px"
+                    maxWidth="630px"
+                    paddingBlock={['22px 44px', '22px 44px', '44px']}
+                    paddingInline={['44px', '30px 44px', '30px 44px', '30px 44px', '30px 44px']}
+                >
+                    <CompanyDescription name={company.name} description={company.description} />
+                    <CategoryList categories={categories} />
+                </Stack>
+            }
         </Flex>
     );
 }
