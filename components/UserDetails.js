@@ -34,9 +34,9 @@ export default function UserDetails({ user }) {
                         height={['140px', '140px', '180px', '180px', '180px',]}
                         width={['140px', '140px', '180px', '180px', '180px',]}
                         borderColor="base !important"
-                        
                         border="10px solid"
                         borderRadius="full"
+                        size="xl"
                     />
                     <Stack>
                         <Heading as="h5" margin="0" lineHeight="heading" fontSize="18px" >{user.name}</Heading>
