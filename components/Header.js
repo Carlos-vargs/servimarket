@@ -28,7 +28,7 @@ export default function Header() {
         },
         {
             name: "Contact",
-            url: "/coming-soon",
+            url: "/contact",
         },
     ];
 
