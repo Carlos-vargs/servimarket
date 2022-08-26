@@ -30,10 +30,6 @@ export default function Header() {
             name: "about",
             url: "/#about",
         },
-        {
-            name: "contact",
-            url: "/contact",
-        },
     ];
 
     !session && navigation.push(
