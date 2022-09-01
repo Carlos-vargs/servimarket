@@ -4,6 +4,7 @@ import { getSession } from "next-auth/react";
 import { request, gql } from "graphql-request";
 import LayoutPage from "@components/LayoutPage";
 import { Heading, Text, VStack } from "@chakra-ui/react";
+const Pagination = dynamic(() => import("@components/Pagination"));
 const ProductList = dynamic(() => import("@components/ProductList"));
 
 export default function Services({ products }) {
@@ -34,7 +35,8 @@ export default function Services({ products }) {
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsam nam eius soluta at labore ex cumque temporibus tempora! Ipsam id, eum voluptatum in consequuntur quasi cum neque
                     </Text>
                 </VStack>
-                <ProductList products={products} />
+                <ProductList products={products.data} />
+                <Pagination paginatorInfo={products.paginatorInfo} />
             </Wrapper>
         </LayoutPage>
     );
@@ -44,28 +46,54 @@ export async function getServerSideProps(ctx) {
 
     const session = await getSession(ctx)
 
+    let page = parseInt(ctx.query?.page)
+
+    if (!page) {
+        page = 1
+    }
+
     const { products } = await request(
         process.env.NEXT_PUBLIC_GRAPHQL_URL,
         gql`
-          query products{
-            products{
-                id 
-                name 
-                description
-                avg
-                usersRated{
-                    id
-                    name
+          query products($first: Int!, $page: Int){
+            products(first:$first, page: $page){
+                paginatorInfo{
+                    count
+                    currentPage
+                    hasMorePages
+                    lastPage
                 }
-                hasRated
+                data{
+                    id 
+                    name 
+                    description
+                    avg
+                    usersRated{
+                        id
+                        name
+                    }
+                    hasRated
+                }
             }
         }
         `,
-        {},
+        {
+            first: 12,
+            page,
+        },
         {
             'Authorization': `Bearer ${session?.token}`,
         }
     )
+
+    if (page > products?.paginatorInfo?.lastPage) {
+        return {
+            redirect: {
+                permanent: false,
+                destination: "/404"
+            }
+        }
+    }
 
     return {
         props: { products }
