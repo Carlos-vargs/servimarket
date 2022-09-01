@@ -47,6 +47,7 @@ export default function Footer() {
             justifyContent="center"
             marginInline="auto"
             alignItems="center"
+            overflow="hidden"
             color="white"
             width="full"
             as="footer"
