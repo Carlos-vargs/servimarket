@@ -29,7 +29,7 @@ export default function ProductCard({ product }) {
                     _hover={{ transform: "scale(1.05)" }}
                 />
             </Box>
-            <Stack alignItems="flex-start" paddingInline="26px" >
+            <Stack alignItems="center" paddingInline="26px">
                 {
                     ratings.length !== 0 && <AvatarGroup
                         bottom="calc(50% + 4px)"
@@ -45,7 +45,7 @@ export default function ProductCard({ product }) {
                         }
                     </AvatarGroup>
                 }
-                <Heading as="h5" fontSize="18px" textTransform="capitalize">{product.name}</Heading>
+                <Heading as="h5" fontSize="18px" textTransform="capitalize" title={product.name}  noOfLines={1}>{product.name}</Heading>
                 <Text noOfLines={1}>{product.description || "no description available"}</Text>
                 <FormRating
                     productId={product.id}
@@ -63,7 +63,7 @@ export default function ProductCard({ product }) {
             >
                 <Flex justifyContent="center" alignItems="center" cursor="pointer" title={`${ratings.length} opinions`} >
                     <StarIcon color="#eee966" />
-                    <Text as="span" fontSize="14px" lineHeight="none" >{productAvg?.toFixed(1) || 0}</Text>
+                    <Text as="span" fontSize="14px" lineHeight="none">{productAvg?.toFixed(1) || 0}</Text>
                 </Flex>
                 <Button variant="outline" maxWidth="130px">get service</Button>
             </Flex>

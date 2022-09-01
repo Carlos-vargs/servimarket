@@ -1,11 +1,11 @@
 import dynamic from "next/dynamic";
 import Logo from "@components/Logo";
+import { Flex } from "@chakra-ui/react";
 import Wrapper from "@components/Wrapper";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { request, gql } from "graphql-request";
 import { Hide, Show } from '@chakra-ui/media-query';
-import { Flex } from "@chakra-ui/react";
 const DesktopNavigation = dynamic(() => import("@components/DesktopNavigation"), { ssr: false });
 const MobileNavigation = dynamic(() => import("@components/MobileNavigation"), { ssr: false });
 
@@ -15,20 +15,20 @@ export default function Header() {
 
     const navigation = [
         {
-            name: "Home",
+            name: "home",
             url: "/",
         },
         {
-            name: "Explore",
+            name: "explore",
             url: "/#explore",
         },
         {
-            name: "About",
-            url: "/#about",
+            name: "services",
+            url: "/services",
         },
         {
-            name: "Contact",
-            url: "/coming-soon",
+            name: "about",
+            url: "/#about",
         },
     ];
 

@@ -4,15 +4,13 @@ import menu from "../../styles/Menu.module.css";
 export default function MenuIcon({ isOpen, onClick }) {
 
     return (
-        <Stack as="button"
-            
-            outline="none"
-            gridGap="11px"
-            cursor="pointer"
+        <Stack
+            as="button"
             zIndex="4"
             width="40px"
-            position={isOpen ? "fixed" : ""}
-            right={['20px', '40px', '60px']}
+            gridGap="11px"
+            outline="none"
+            cursor="pointer"
             onClick={onClick}
             justifyContent="center"
         >
