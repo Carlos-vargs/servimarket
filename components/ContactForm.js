@@ -1,26 +1,54 @@
 import { Button, Heading, VStack } from "@chakra-ui/react";
 import CustomTextTarea from "@components/CustomTextTarea";
+import fixErrorsMessage from "@utils/fixErrorsMessage";
 import CustomInput from "@components/CustomInput";
+import { request, gql } from "graphql-request";
 import MessageIcon from "@icons/MessageIcon";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
 
-
-export default function ContactForm() {
+export default function ContactForm({ emailTo }) {
 
     const router = useRouter()
+    const { data: session } = useSession()
 
     const formik = useFormik({
         initialValues: {
-            name: "",
-            email: "",
+            emailTo,
             subject: "",
             message: "",
-
         },
-        onSubmit: values => {
-            
-            router.push("/")
+        onSubmit: async input => {
+
+            try {
+                await request(
+                    process.env.NEXT_PUBLIC_GRAPHQL_URL,
+                    gql`
+                        mutation contactCompanyOwner($input: ContactCompanyOwnerInput!) {
+                            contactCompanyOwner(input: $input) {
+                                status
+                            }
+                        }
+                    `,
+                    {
+                        input
+                    },
+                    {
+                        'Authorization': `Bearer ${session.token}`,
+                    }
+                )
+
+                router.push({
+                    pathname: '/company/[id]',
+                    query: { id: router.query.id },
+                })
+
+            } catch ({ response: { errors } }) {
+
+                formik.setErrors(fixErrorsMessage(errors[0].extensions.validation))
+
+            }
 
         }
     })
@@ -41,22 +69,6 @@ export default function ContactForm() {
             paddingInline={['20px', '20px', '40px', '40px', '40px',]}
         >
             <Heading as="h3" fontSize="30px">Quick Contact Us</Heading>
-            <CustomInput
-                required
-                name="name"
-                title="name"
-                placeholder="name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-            />
-            <CustomInput
-                required
-                name="email"
-                title="email"
-                placeholder="example@gmail.com"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-            />
             <CustomInput
                 required
                 name="subject"
@@ -84,3 +96,4 @@ export default function ContactForm() {
         </VStack>
     );
 }
+
