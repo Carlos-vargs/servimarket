@@ -10,7 +10,7 @@ export default function MyApp({
 
 	return (
 		<SessionProvider session={session} >
-			<ChakraProvider theme={theme}>
+			<ChakraProvider resetCSS theme={theme}>
 				<Component {...pageProps} />
 			</ChakraProvider>
 		</SessionProvider>
