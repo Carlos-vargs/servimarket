@@ -44,7 +44,7 @@ export default function PrimeData() {
                         <NextChakraLink href="/#explore">
                             <Button leftIcon={<DiscoverIcon />}>explore</Button>
                         </NextChakraLink>
-                        <NextChakraLink href="/coming-soon">
+                        <NextChakraLink href="/services">
                             <Button
                                 color="white"
                                 variant="outline"
