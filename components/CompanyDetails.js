@@ -5,7 +5,7 @@ import CompanyDescription from "@components/CompanyDescription";
 const CompanyOptions = dynamic(() => import('@components/CompanyOptions'))
 
 
-export default function CompanyDetails({ company, categories }) {
+export default function CompanyDetails({ company }) {
 
     return (
         <Flex
@@ -18,16 +18,16 @@ export default function CompanyDetails({ company, categories }) {
             flexWrap="wrap"
             color="white"
         >
-            <CompanyOptions name={company.name} ownerId={company.user.id} />
+            <CompanyOptions name={company.name} ownerId={null} />
             {
-                (company.description || categories) && <Stack
+                (company.description || company.categories) && <Stack
                     spacing="44px"
                     maxWidth="630px"
                     paddingBlock={['22px 44px', '22px 44px', '44px']}
                     paddingInline={['44px', '30px 44px', '30px 44px', '30px 44px', '30px 44px']}
                 >
                     <CompanyDescription name={company.name} description={company.description} />
-                    <CategoryList title={!company.description && "categories"} categories={categories} />
+                    <CategoryList title={!company.description && "categories"} categories={company.categories} />
                 </Stack>
             }
         </Flex>

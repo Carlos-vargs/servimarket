@@ -33,7 +33,7 @@ export default function Pagination({ paginatorInfo }) {
                 nextClassName={styles.next}
                 className={styles.list}
                 marginPagesDisplayed={2}
-                pageCount={paginatorInfo.lastPage}
+                pageCount={paginatorInfo?.lastPage}
                 previousClassName={styles.previous}
                 onPageChange={(page) => {
                     setSelectedPage(page.selected)
@@ -45,7 +45,7 @@ export default function Pagination({ paginatorInfo }) {
                         border="none"
                         borderRadius={0}
                         variant="outline"
-                        isDisabled={!(paginatorInfo.currentPage !== 1)}
+                        isDisabled={!(paginatorInfo?.currentPage !== 1)}
                     >
                         <VisuallyHidden>Previous</VisuallyHidden>
                         <ArrowIconPagination />
@@ -58,7 +58,7 @@ export default function Pagination({ paginatorInfo }) {
                         borderRadius={0}
                         variant="outline"
                         transform="rotate(180deg)"
-                        isDisabled={!paginatorInfo.hasMorePages}
+                        isDisabled={!paginatorInfo?.hasMorePages}
                     >
                         <VisuallyHidden>Next</VisuallyHidden>
                         <ArrowIconPagination />
