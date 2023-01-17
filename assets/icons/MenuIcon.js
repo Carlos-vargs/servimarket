@@ -10,6 +10,7 @@ export default function MenuIcon({ isOpen, onClick }) {
             width="40px"
             gridGap="11px"
             outline="none"
+            display={["flex","flex","flex","none"]}
             cursor="pointer"
             onClick={onClick}
             justifyContent="center"
