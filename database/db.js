@@ -65,7 +65,9 @@ class Database {
     let data = {
       ...user,
       createdAt: "2023-01-12 21:05:24",
-      companies: [...companies.filter((company) => company.ownerId === user.id)],
+      companies: [
+        ...companies.filter((company) => company.ownerId === user.id),
+      ],
     };
 
     return data;
