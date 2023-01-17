@@ -1,5 +1,5 @@
 const fontWeights = {
-    bold: "600",
-}
+  bold: "600",
+};
 
-export default fontWeights
+export default fontWeights;
