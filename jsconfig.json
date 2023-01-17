@@ -1,34 +1,37 @@
 {
-    "compilerOptions": {
-        "module": "ESNext",
-        "moduleResolution": "Node",
-        "target": "ES2020",
-        "jsx": "preserve",
-        "strictFunctionTypes": true,
-        "baseUrl": ".",
-        "paths": {
-            "@images/*": [
-                "assets/images/*"
-            ],
-            "@icons/*": [
-                "assets/icons/*"
-            ],
-            "@components/*": [
-                "components/*"
-            ],
-            "@public/*": [
-                "public/*"
-            ],
-            "@utils/*": [
-                "utils/*"
-            ],
-        },
-        "types": [
-            "node",
-        ]
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "target": "ES2020",
+    "jsx": "preserve",
+    "strictFunctionTypes": true,
+    "baseUrl": ".",
+    "paths": {
+      "@images/*": [
+        "assets/images/*"
+      ],
+      "@icons/*": [
+        "assets/icons/*"
+      ],
+      "@components/*": [
+        "components/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@database": [
+        "database/db"
+      ]
     },
-    "exclude": [
-        "node_modules",
-        "**/node_modules/*"
+    "types": [
+      "node"
     ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
 }
