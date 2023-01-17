@@ -81,7 +81,8 @@ export default function Header() {
             width="full"
             height="100px"
             position="sticky"
-            backgroundColor="base"
+            background="hsla(219, 78%, 12%, .8)"
+            backdropFilter="saturate(180%) blur(5px)"
             justifyContent="center"
         >
             <Wrapper
