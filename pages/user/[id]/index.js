@@ -1,58 +1,32 @@
 import dynamic from "next/dynamic";
-import { gql, request } from "graphql-request";
-import LayoutPage from '@components/LayoutPage'
-const UserDetails = dynamic(() => import('@components/UserDetails'))
-const CompanyList = dynamic(() => import('@components/CompanyList'))
+import LayoutPage from "@components/LayoutPage";
+const UserDetails = dynamic(() => import("@components/UserDetails"));
+const CompanyList = dynamic(() => import("@components/CompanyList"));
 
-
-export default function Profile({ user, companies }) {
-
-    return (
-        <LayoutPage titleHead={user.name}  >
-            <UserDetails user={user} />
-            <CompanyList companies={companies} />
-        </LayoutPage>
-    );
-
+export default function Profile({ user }) {
+  return (
+    <LayoutPage titleHead={user.name}>
+      <UserDetails user={user} />
+      <CompanyList companies={user.companies} />
+    </LayoutPage>
+  );
 }
 
 export async function getServerSideProps(ctx) {
+  const user = await fetch(
+    `${process.env.NEXT_API_URL}/user?id=${ctx.query.id}`
+  ).then((res) => res.json());
 
-    const { user } = await request(
-        process.env.NEXT_PUBLIC_GRAPHQL_URL,
-        gql`
-          query user($id: ID!){
-            user(id:$id){
-                id
-                name 
-                email
-                createdAt
-                companies{
-                    id
-                    name
-                    description
-                    productCount
-                }
-            }
-          }
-        `,
-        {
-            id: ctx.query.id
-        },
-    )
-
-    if (!user) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/404"
-            }
-        }
-    }
-
-    const { companies } = user
-
+  if (!user) {
     return {
-        props: { user, companies }
-    }
+      redirect: {
+        permanent: false,
+        destination: "/404",
+      },
+    };
+  }
+
+  return {
+    props: { user },
+  };
 }
